@@ -129,11 +129,50 @@ const outline = (config, name, points, outlines, units) => {
     }, units]
 }
 
+const mxhole = (config, name, points, outlines, units) => {
+    // copy of polygon but with hardcoded points
+
+    // prepare params
+    //a.unexpected(config, `${name}`, ['points'])
+    const poly_points = [
+        {"shift":[0,0],"orient":0},
+        {"shift":[0,5],"orient":90},
+        {"shift":[0,0.35],"orient":90},
+        {"shift":[0,4],"orient":-90},
+        {"shift":[0,0.35],"orient":-90},
+        {"shift":[0,5],"orient":90},
+        {"shift":[0,14],"orient":90},
+        {"shift":[0,5],"orient":90},
+        {"shift":[0,0.35],"orient":90},
+        {"shift":[0,4],"orient":-90},
+        {"shift":[0,0.35],"orient":-90},
+        {"shift":[0,5],"orient":90}
+    ];
+
+    // return shape function and its units
+    return [point => {
+        const parsed_points = []
+        // the poly starts at [0, 0] as it will be positioned later
+        // but we keep the point metadata for potential mirroring purposes
+        let last_anchor = new Point(0, 0, 0, point.meta)
+        let poly_index = -1
+        for (const poly_point of poly_points) {
+            const poly_name = `${name}.points[${++poly_index}]`
+            last_anchor = anchor(poly_point, poly_name, points, last_anchor)(units)
+            parsed_points.push(last_anchor.p)
+        }
+        let poly = u.poly(parsed_points)
+        const bbox = u.bbox(parsed_points)
+        return [poly, bbox]
+    }, units]
+}
+
 const whats = {
     rectangle,
     circle,
     polygon,
-    outline
+    outline,
+    mxhole
 }
 
 const expand_shorthand = (config, name, units) => {
@@ -184,7 +223,7 @@ exports.parse = (config, points, units) => {
 
             // process keys that are common to all part declarations
             const operation = u[a.in(part.operation || 'add', `${name}.operation`, ['add', 'subtract', 'intersect', 'stack'])]
-            const what = a.in(part.what || 'outline', `${name}.what`, ['rectangle', 'circle', 'polygon', 'outline'])
+            const what = a.in(part.what || 'outline', `${name}.what`, ['rectangle', 'circle', 'polygon', 'outline', 'mxhole'])
             const bound = !!part.bound
             const asym = a.asym(part.asym || 'source', `${name}.asym`)
 
