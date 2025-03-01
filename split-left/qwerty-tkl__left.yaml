@@ -1,0 +1,326 @@
+meta:
+  engine: 4.1.0
+
+units:
+  # kx/ky is the layout space used to position edge-to-edge,
+  # for example using cherry mx as a guide:
+  # a cherry mx switch pcb plate hole is 14x14,
+  # a keycap is 18x18,
+  # but the size to use for laying out edge to edge (taking into account gaps between switches/keycaps) is 19.05mm
+  kx: 19.05
+  ky: 19.05
+
+  # make the ergogen web preview
+  # SHOULD MATCH `kx/ky`
+  $default_width: 19.05
+  $default_height: 19.05
+
+  # capX/capY is the size of a key cap
+  capX: 18
+  capY: 18
+
+  # swHoleX/swHoleY is the size of a keyswitch
+  swHoleX: 14
+  swHoleY: 14
+
+  # pad is used to bump the edges of the case polygon out
+  pad: 12
+  topPad: 14
+
+  pcbOffsetX: 100
+  pcbOffsetY: -100
+
+  mcNotchW: 60
+  mcNotchH: 32.5
+  mcNotchOffset: 10
+
+points:
+  key:
+    # padding is Y (but at 90 it is X)
+    padding: 1kx
+    # spread is X (but at 90 it is Y)
+    spread: 1kx
+
+  zones:
+    functionKeysMatrix:
+      anchor.shift: [pcbOffsetX, pcbOffsetY]
+
+      columns:
+        esc:
+          key.column_net: P3
+
+        f1:
+          key.spread: 1.25kx
+          key.column_net: P4
+
+        f2:
+          key.column_net: P5
+
+        f3:
+          key.column_net: P6
+
+        f4:
+          key.column_net: P7
+
+        f5:
+          key.spread: 1.25kx
+          key.column_net: P8
+
+        f6:
+          key.column_net: P9
+
+      rows:
+        only:
+          shift: [0, 1.25kx]
+          row_net: P10
+
+    qwertyMatrix:
+      # we are swapping rows for cols to get x stagger as we are not ortho linear
+      anchor.rotate: -90
+      anchor.shift: [pcbOffsetX, pcbOffsetY]
+
+      # read as columns. see anchor.rotate
+      rows:
+        lBord:
+          column_net: P3
+        q1:
+          column_net: P4
+        w2:
+          column_net: P5
+        e3:
+          column_net: P6
+        r4:
+          column_net: P7
+        t5:
+          column_net: P8
+        y6:
+          column_net: P9
+
+      # read as rows. see anchor.rotate
+      columns:
+        num:
+          key.row_net: P16
+
+        tab:
+          key.row_net: P14
+
+          # adjust the TAB key
+          rows.lBord:
+            # adjusts the width of this key but from center outwards
+            height: 1.5kx
+            # after it stretch out from center re aligns the left/start pos
+            # formula = `{height}/6`
+            shift: [0, 0.25kx]
+            # fixes the start of the next key
+            # formula = `{height}/1.2`
+            padding: 1.25kx
+
+        cap:
+          key.row_net: P15
+
+          # adjust the CAPS key
+          rows.lBord:
+            skip: true
+            padding: 1.75kx
+
+        shift:
+          key.row_net: P18
+
+          # adjust the LShift key
+          rows.lBord:
+            height: 1.25kx
+            shift: [0, 0.125kx]
+            padding: 1.125kx
+
+    ctrlMatrix:
+      anchor.shift: [pcbOffsetX, pcbOffsetY]
+
+      columns:
+        ctrl:
+          rows.only:
+            width: 1.25kx
+            adjust.shift: [0.125kx, 0]
+          key.column_net: P3
+
+        win:
+          rows.only:
+            # spread seems to be the spacing after prev
+            # set it to the width of the col before
+            # and on this first one add what the extra would have been (seems to be needed because of the use of adjust.shift on col 1)
+            spread: 1.25kx + 0.125kx
+            width: 1.25kx
+          key.column_net: P4
+
+        lAlt:
+          rows.only:
+            spread: 1.75kx
+            width: 1.25kx
+          key.column_net: P6
+
+        space:
+          rows.only:
+            spread: 2.5kx
+            width: 3.75kx
+          key.column_net: P8
+
+      rows:
+        only:
+          shift: [0, -4kx]
+          row_net: P19
+
+outlines:
+  threeUKeyCaps:
+    - what: rectangle
+      where: "/^ctrlMatrix_space/"
+      bound: false
+      size: [3capX, capY]
+
+  keyCaps:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [capX, capY]
+
+  switches:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [swHoleX, swHoleY]
+
+  mxHole:
+    - what: polygon
+      where: {}
+      bound: false
+      points:
+        - { shift: [0, 0] }
+        - { shift: [5, 0] }
+        - { shift: [0, -0.3] }
+        - { shift: [4, 0] }
+        - { shift: [0, 0.3] }
+        - { shift: [5, 0] }
+        - { shift: [0, -14] }
+        - { shift: [-5, 0] }
+        - { shift: [0, 0.3] }
+        - { shift: [-4, 0] }
+        - { shift: [0, -0.3] }
+        - { shift: [-5, 0] }
+
+  polyHoles:
+    - what: outline
+      where: "/^qwertyMatrix_.*/"
+      name: mxHole
+      adjust:
+        rotate: 90
+
+    - what: outline
+      where: "-/^qwertyMatrix_.*/"
+      name: mxHole
+
+  case:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: functionKeysMatrix_esc_only
+          shift: [-1pad, topPad]
+        - ref: functionKeysMatrix_esc_only
+          shift: [mcNotchOffset, topPad]
+        - ref: functionKeysMatrix_esc_only
+          shift: [mcNotchOffset, mcNotchH]
+        - ref: functionKeysMatrix_esc_only
+          shift: [mcNotchOffset+mcNotchW, mcNotchH]
+        - ref: functionKeysMatrix_esc_only
+          shift: [mcNotchOffset+mcNotchW, topPad]
+        - ref: functionKeysMatrix_f6_only
+          shift: [pad, topPad]
+        - ref: qwertyMatrix_cap_y6
+          shift: [-0.5ky, 0.7kx]
+        - ref: ctrlMatrix_space_only
+          shift: [1.8kx, -1pad]
+        - ref: ctrlMatrix_ctrl_only
+          shift: [-1.2pad, -pad]
+      fillet: 0.25pad
+
+  comboKeys:
+    - name: case
+    - operation: subtract
+      name: keyCaps
+    - operation: subtract
+      name: threeUKeyCaps
+
+  comboSwitchHoles:
+    - name: case
+    - operation: subtract
+      name: polyHoles
+      adjust:
+        shift: [-(swHoleX/2), swHoleY/2]
+
+pcbs:
+  pcb-v1:
+    outlines:
+      main:
+        outline: case
+
+    footprints:
+      qwerty-switches:
+        what: mx
+        where: "/^qwertyMatrix_.*/"
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: false
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        adjust:
+          rotate: 90
+
+      other-switches:
+        what: mx
+        where: "-/^qwertyMatrix_.*/"
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: false
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+
+      qwerty-diodes:
+        what: diode
+        where: "/^qwertyMatrix_.*/"
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          rotate: 90
+          shift: [5, 0]
+
+      other-diodes:
+        what: diode
+        where: "-/^qwertyMatrix_.*/"
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+
+      black-pill-controller:
+        what: blackpill
+        where:
+          ref: functionKeysMatrix_esc_only
+          shift: [32.5, 22.5]
+          rotate: 0
+
+      box-header:
+        what: boxheader
+        where:
+          ref: functionKeysMatrix_esc_only
+          shift: [80, 22.5]
+          rotate: 0
+
+      mounting-hole-one:
+        what: npth
+        where:
+          ref: qwertyMatrix_cap_lBord
+          shift: [-30, 0]
+          rotate: 0
+
+cases:

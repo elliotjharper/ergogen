@@ -1,5 +1,7 @@
 module.exports = {
     alps: require('./alps'),
+    blackpill: require('./blackpill'),
+    boxheader: require('./boxheader'),
     button: require('./button'),
     choc: require('./choc'),
     chocmini: require('./chocmini'),
@@ -7,6 +9,8 @@ module.exports = {
     jstph: require('./jstph'),
     jumper: require('./jumper'),
     mx: require('./mx'),
+    mxhole: require('./mxhole'),
+    npth: require('./npth'),
     oled: require('./oled'),
     omron: require('./omron'),
     pad: require('./pad'),

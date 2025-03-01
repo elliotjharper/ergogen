@@ -12,7 +12,8 @@
     "scripts": {
         "build": "rollup -c",
         "test": "mocha -r test/helpers/register test/index.js",
-        "coverage": "nyc --reporter=html --reporter=text npm test"
+        "coverage": "nyc --reporter=html --reporter=text npm test",
+        "run-left": "node src/cli.js ./split-left/qwerty-tkl__left.yaml -o split-left/output"
     },
     "dependencies": {
         "fs-extra": "^11.1.0",
