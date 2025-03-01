@@ -23,8 +23,7 @@ module.exports = {
     params: {
       designator: 'MH',
       side: 'F',
-      hole_size: '2.2',
-      hole_drill: '2.2',
+      hole: '2.2',
     },
     body: p => `
     (footprint "ceoloide:mounting_hole_npth"
@@ -38,8 +37,8 @@ module.exports = {
       )
       (pad "" np_thru_hole circle
         (at 0 0 ${p.r})
-        (size ${p.hole_size} ${p.hole_size})
-        (drill ${p.hole_drill})
+        (size ${p.hole} ${p.hole})
+        (drill ${p.hole})
         (layers "*.Cu" "*.Mask")
       )
     )

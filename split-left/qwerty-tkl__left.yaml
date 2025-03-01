@@ -30,9 +30,11 @@ units:
   pcbOffsetX: 100
   pcbOffsetY: -100
 
-  mcNotchW: 60
+  mcNotchW: 100
   mcNotchH: 32.5
   mcNotchOffset: 10
+
+  mountHoleR: 2.2
 
 points:
   key:
@@ -168,6 +170,34 @@ points:
           shift: [0, -4kx]
           row_net: P19
 
+    mountingCapsMatrix:
+      rows.only:
+      columns.caps-l.rows.only.adjust.ref.shift: [112.5, -137.6]
+
+    mountingLeftAltMatrix:
+      rows.only:
+      columns.left-alt-l.rows.only.adjust.ref.shift: [142.5, -177.4]
+
+    mountingSpaceLMatrix:
+      rows.only:
+      columns.space-l.rows.only.adjust.ref.shift: [182.5, -177.4]
+
+    mountingSpaceRMatrix:
+      rows.only:
+      columns.space-r.rows.only.adjust.ref.shift: [225, -177.4]
+
+    mountingTildeTMatrix:
+      rows.only:
+      columns.space-r.rows.only.adjust.ref.shift: [100, -88.1]
+
+    mountingThreeTMatrix:
+      rows.only:
+      columns.space-r.rows.only.adjust.ref.shift: [157, -88.1]
+
+    mountingSixTMatrix:
+      rows.only:
+      columns.space-r.rows.only.adjust.ref.shift: [214, -88.1]
+
 outlines:
   threeUKeyCaps:
     - what: rectangle
@@ -177,9 +207,15 @@ outlines:
 
   keyCaps:
     - what: rectangle
-      where: true
+      where: "-/mounting.*Matrix_.*/"
       bound: false
       size: [capX, capY]
+
+  mountingHoles:
+    - what: circle
+      where: "/mounting.*Matrix_.*/"
+      bound: false
+      radius: mountHoleR
 
   switches:
     - what: rectangle
@@ -213,7 +249,7 @@ outlines:
         rotate: 90
 
     - what: outline
-      where: "-/^qwertyMatrix_.*/"
+      where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
       name: mxHole
 
   case:
@@ -223,13 +259,9 @@ outlines:
         - ref: functionKeysMatrix_esc_only
           shift: [-1pad, topPad]
         - ref: functionKeysMatrix_esc_only
-          shift: [mcNotchOffset, topPad]
-        - ref: functionKeysMatrix_esc_only
           shift: [mcNotchOffset, mcNotchH]
         - ref: functionKeysMatrix_esc_only
           shift: [mcNotchOffset+mcNotchW, mcNotchH]
-        - ref: functionKeysMatrix_esc_only
-          shift: [mcNotchOffset+mcNotchW, topPad]
         - ref: functionKeysMatrix_f6_only
           shift: [pad, topPad]
         - ref: qwertyMatrix_cap_y6
@@ -253,6 +285,8 @@ outlines:
       name: polyHoles
       adjust:
         shift: [-(swHoleX/2), swHoleY/2]
+    - operation: subtract
+      name: mountingHoles
 
 pcbs:
   pcb-v1:
@@ -263,7 +297,7 @@ pcbs:
     footprints:
       qwerty-switches:
         what: mx
-        where: "/^qwertyMatrix_.*/"
+        where: ["/^qwertyMatrix_.*/"]
         params:
           keycaps: true
           reverse: false
@@ -275,7 +309,7 @@ pcbs:
 
       other-switches:
         what: mx
-        where: "-/^qwertyMatrix_.*/"
+        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
         params:
           keycaps: true
           reverse: false
@@ -285,7 +319,7 @@ pcbs:
 
       qwerty-diodes:
         what: diode
-        where: "/^qwertyMatrix_.*/"
+        where: ["/^qwertyMatrix_.*/"]
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
@@ -295,7 +329,7 @@ pcbs:
 
       other-diodes:
         what: diode
-        where: "-/^qwertyMatrix_.*/"
+        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
@@ -304,23 +338,16 @@ pcbs:
 
       black-pill-controller:
         what: blackpill
-        where:
-          ref: functionKeysMatrix_esc_only
-          shift: [32.5, 22.5]
-          rotate: 0
+        where.ref.shift: [140, -55]
 
       box-header:
         what: boxheader
-        where:
-          ref: functionKeysMatrix_esc_only
-          shift: [80, 22.5]
-          rotate: 0
+        where.ref.shift: [200, -60]
 
-      mounting-hole-one:
+      mounting-holes:
         what: npth
-        where:
-          ref: qwertyMatrix_cap_lBord
-          shift: [-30, 0]
-          rotate: 0
+        where: "/mounting.*Matrix_.*/"
+        params:
+          hole: mountHoleR
 
 cases:
