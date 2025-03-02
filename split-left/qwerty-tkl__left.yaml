@@ -32,7 +32,7 @@ units:
 
   mcNotchW: 100
   mcNotchH: 32.5
-  mcNotchOffset: 10
+  mcNotchOffset: 8
 
   mountHoleR: 2.2
 
@@ -67,9 +67,6 @@ points:
         f5:
           key.spread: 1.25kx
           key.column_net: P8
-
-        f6:
-          key.column_net: P9
 
       rows:
         only:
@@ -172,31 +169,43 @@ points:
 
     mountingCapsMatrix:
       rows.only:
-      columns.caps-l.rows.only.adjust.ref.shift: [112.5, -137.6]
+      columns.only.rows.only.adjust.ref.shift: [112.5, -137.6]
 
     mountingLeftAltMatrix:
       rows.only:
-      columns.left-alt-l.rows.only.adjust.ref.shift: [142.5, -177.4]
+      columns.only.rows.only.adjust.ref.shift: [142.5, -177.4]
 
     mountingSpaceLMatrix:
       rows.only:
-      columns.space-l.rows.only.adjust.ref.shift: [182.5, -177.4]
+      columns.only.rows.only.adjust.ref.shift: [182.5, -177.4]
 
     mountingSpaceRMatrix:
       rows.only:
-      columns.space-r.rows.only.adjust.ref.shift: [225, -177.4]
+      columns.only.rows.only.adjust.ref.shift: [225, -177.4]
 
     mountingTildeTMatrix:
       rows.only:
-      columns.space-r.rows.only.adjust.ref.shift: [100, -88.1]
+      columns.only.rows.only.adjust.ref.shift: [100, -88.1]
 
     mountingThreeTMatrix:
       rows.only:
-      columns.space-r.rows.only.adjust.ref.shift: [157, -88.1]
+      columns.only.rows.only.adjust.ref.shift: [157, -88.1]
 
     mountingSixTMatrix:
       rows.only:
-      columns.space-r.rows.only.adjust.ref.shift: [214, -88.1]
+      columns.only.rows.only.adjust.ref.shift: [214, -88.1]
+
+    mountingControllerLTMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [100, -60]
+
+    mountingBoxLMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [165, -47]
+
+    mountingBoxRMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [205, -47]
 
 outlines:
   threeUKeyCaps:
@@ -262,7 +271,7 @@ outlines:
           shift: [mcNotchOffset, mcNotchH]
         - ref: functionKeysMatrix_esc_only
           shift: [mcNotchOffset+mcNotchW, mcNotchH]
-        - ref: functionKeysMatrix_f6_only
+        - ref: functionKeysMatrix_f5_only
           shift: [pad, topPad]
         - ref: qwertyMatrix_cap_y6
           shift: [-0.5ky, 0.7kx]
@@ -287,6 +296,8 @@ outlines:
         shift: [-(swHoleX/2), swHoleY/2]
     - operation: subtract
       name: mountingHoles
+
+cases:
 
 pcbs:
   pcb-v1:
@@ -338,16 +349,14 @@ pcbs:
 
       black-pill-controller:
         what: blackpill
-        where.ref.shift: [140, -55]
+        where.ref.shift: [135, -55]
 
       box-header:
         what: boxheader
-        where.ref.shift: [200, -60]
+        where.ref.shift: [185, -55]
 
       mounting-holes:
         what: npth
         where: "/mounting.*Matrix_.*/"
         params:
           hole: mountHoleR
-
-cases:
