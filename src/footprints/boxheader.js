@@ -18,7 +18,7 @@ const pinHoleSize = 1.0922;
 
 module.exports = {
     params: {
-      designator: 'MCU',
+      designator: 'BH',
       orientation: 'down',
       H1: {type: 'net', value: 'H1'},
       H2: {type: 'net', value: 'H2'},
@@ -41,7 +41,7 @@ module.exports = {
       H19: {type: 'net', value: 'H19'},
       H20: {type: 'net', value: 'H20'}
     },
-    body: p => {
+    body: (p) => {
       const standard = `
         (module IdcBoxHeader (layer F.Cu) (tedit 5B307E4C)
         ${p.at /* parametric position */}
@@ -60,7 +60,7 @@ module.exports = {
       function pinOutput(sign, pinNumber, rowIndex, pinObj) {
         return `
           (pad ${pinNumber} thru_hole circle (at ${pinX(rowIndex)} ${sign}${pinsY} 0) (size ${pinPadSize} ${pinPadSize}) (drill ${pinHoleSize}) (layers *.Cu *.SilkS *.Mask) ${pinObj})
-          (fp_text user H${pinNumber} (at ${pinX(rowIndex)} ${sign}6 ${p.r + 90}) (layer F.SilkS) (effects (font (size 0.8 0.8) (thickness 0.15))))
+          (fp_text user ${pinObj.name} (at ${pinX(rowIndex)} ${sign}6 ${p.r + 90}) (layer F.SilkS) (effects (font (size 0.8 0.8) (thickness 0.15))))
         `;
       }
 
