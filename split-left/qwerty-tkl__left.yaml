@@ -30,9 +30,9 @@ units:
   pcbOffsetX: 100
   pcbOffsetY: -100
 
-  mcNotchW: 100
+  mcNotchW: 110
   mcNotchH: 32.5
-  mcNotchOffset: 8
+  mcNotchOffset: 5
 
   mountHoleR: 2.2
 
@@ -49,29 +49,29 @@ points:
 
       columns:
         esc:
-          key.column_net: P3
+          key.column_net: B12
 
         f1:
           key.spread: 1.25kx
-          key.column_net: P4
+          key.column_net: B13
 
         f2:
-          key.column_net: P5
+          key.column_net: B14
 
         f3:
-          key.column_net: P6
+          key.column_net: B15
 
         f4:
-          key.column_net: P7
+          key.column_net: A8
 
         f5:
           key.spread: 1.25kx
-          key.column_net: P8
+          key.column_net: A9
 
       rows:
         only:
           shift: [0, 1.25kx]
-          row_net: P10
+          row_net: B4
 
     qwertyMatrix:
       # we are swapping rows for cols to get x stagger as we are not ortho linear
@@ -81,27 +81,27 @@ points:
       # read as columns. see anchor.rotate
       rows:
         lBord:
-          column_net: P3
+          column_net: B12
         q1:
-          column_net: P4
+          column_net: B13
         w2:
-          column_net: P5
+          column_net: B14
         e3:
-          column_net: P6
+          column_net: B15
         r4:
-          column_net: P7
+          column_net: A8
         t5:
-          column_net: P8
+          column_net: A9
         y6:
-          column_net: P9
+          column_net: A10
 
       # read as rows. see anchor.rotate
       columns:
         num:
-          key.row_net: P16
+          key.row_net: B5
 
         tab:
-          key.row_net: P14
+          key.row_net: B6
 
           # adjust the TAB key
           rows.lBord:
@@ -115,7 +115,7 @@ points:
             padding: 1.25kx
 
         cap:
-          key.row_net: P15
+          key.row_net: B7
 
           # adjust the CAPS key
           rows.lBord:
@@ -123,7 +123,7 @@ points:
             padding: 1.75kx
 
         shift:
-          key.row_net: P18
+          key.row_net: B8
 
           # adjust the LShift key
           rows.lBord:
@@ -139,7 +139,7 @@ points:
           rows.only:
             width: 1.25kx
             adjust.shift: [0.125kx, 0]
-          key.column_net: P3
+          key.column_net: B12
 
         win:
           rows.only:
@@ -148,24 +148,24 @@ points:
             # and on this first one add what the extra would have been (seems to be needed because of the use of adjust.shift on col 1)
             spread: 1.25kx + 0.125kx
             width: 1.25kx
-          key.column_net: P4
+          key.column_net: B13
 
         lAlt:
           rows.only:
             spread: 1.75kx
             width: 1.25kx
-          key.column_net: P6
+          key.column_net: B15
 
         space:
           rows.only:
             spread: 2.5kx
             width: 3.75kx
-          key.column_net: P8
+          key.column_net: A9
 
       rows:
         only:
           shift: [0, -4kx]
-          row_net: P19
+          row_net: B9
 
     mountingCapsMatrix:
       rows.only:
@@ -197,7 +197,7 @@ points:
 
     mountingControllerLTMatrix:
       rows.only:
-      columns.only.rows.only.adjust.ref.shift: [100, -60]
+      columns.only.rows.only.adjust.ref.shift: [98, -60]
 
     mountingBoxLMatrix:
       rows.only:
@@ -205,7 +205,7 @@ points:
 
     mountingBoxRMatrix:
       rows.only:
-      columns.only.rows.only.adjust.ref.shift: [205, -47]
+      columns.only.rows.only.adjust.ref.shift: [210, -47]
 
 outlines:
   threeUKeyCaps:
@@ -349,11 +349,11 @@ pcbs:
 
       black-pill-controller:
         what: blackpill
-        where.ref.shift: [135, -55]
+        where.ref.shift: [132, -55]
 
       box-header:
         what: boxheader
-        where.ref.shift: [185, -55]
+        where.ref.shift: [187, -58]
 
       mounting-holes:
         what: npth

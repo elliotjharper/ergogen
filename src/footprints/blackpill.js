@@ -20,15 +20,30 @@ const outlineY = pinsY + pinPitch;
 const pinPadSize = 1.7526;
 const pinHoleSize = 1.0922;
 
+/**
+ * Unusable pins: https://docs.qmk.fm/platformdev_blackpill_f4x1#pin-usage-limitations
+ * A11, A12
+ */
+
 const topRowPinKeys = [
-    'P1', 'P2', 'P3', 'B10', 'B2', 'B1', 'B0', 'A7', 'A6', 'A5', 'A4', 'A3', 'A2', 'A1', 'A0', 'P16', 'C15', 'C14', 'C13', 'VBAT'
+    't5V', 'tG', 't3V3', 'B10', 'B2', 'B1', 'B0', 'A7', 'A6', 'A5', 'A4', 'A3', 'A2', 'A1', 'A0', 'R', 'C15', 'C14', 'C13', 'VBAT'
 ];
 const bottomRowPinKeys = [
-    'B12', 'B13', 'B14', 'B15', 'A8', 'A9', 'A10', 'A11', 'A12', 'A15', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'P38', 'P39', 'P40'
+    'B12', 'B13', 'B14', 'B15', 'A8', 'A9', 'A10', 'A11', 'A12', 'A15', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'b5V', 'bG', 'b3V3'
+];
+const unusablePinKeys = [
+    'A11', 'A12', 'B2', 'R'
 ];
 
+function screenedPinKey(pinKey) {
+    return unusablePinKeys.includes(pinKey)
+        ? `X${unusablePinKeys.indexOf(pinKey)}` 
+        : pinKey;
+}
+
 function addParamPins(paramsObj, pinKeys) {
-    for(const pinKey of pinKeys) {
+    for(let pinKey of pinKeys) {
+        pinKey = screenedPinKey(pinKey);
         paramsObj[pinKey] = { type: 'net', value: pinKey };
     }
 }
@@ -64,8 +79,11 @@ module.exports = {
 
         function pinOutput(pos, rowIndex, pinKey) {
             const sign = pos ? '' : '-';
+
+            pinKey = screenedPinKey(pinKey);
+
             return `
-                (pad ${pinKey} thru_hole circle (at ${pinX(rowIndex)} ${sign}${pinsY} 0) (size ${pinPadSize} ${pinPadSize}) (drill ${pinHoleSize}) (layers *.Cu *.SilkS *.Mask) ${p[pinKey]})
+                (pad ${pinKey} thru_hole circle (at ${pinX(rowIndex)} ${sign}${pinsY} 0) (size ${pinPadSize} ${pinPadSize}) (drill ${pinHoleSize}) (layers *.Cu *.SilkS *.Mask) ${p[pinKey] ?? 'U1'})
                 (fp_text user ${pinKey} (at ${pinX(rowIndex)} ${sign}${labelY} ${p.r + 90}) (layer F.SilkS) (effects (font (size 0.8 0.8) (thickness 0.15))))
             `;
         }
