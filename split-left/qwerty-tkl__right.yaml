@@ -1,6 +1,5 @@
 meta:
   engine: 4.1.0
-
 units:
   # kx/ky is the layout space used to position edge-to-edge,
   # for example using cherry mx as a guide:
@@ -27,12 +26,12 @@ units:
   pad: 12
   topPad: 14
 
-  pcbOffsetX: 100
-  pcbOffsetY: -100
+  pcbOffsetX: 25
+  pcbOffsetY: -125
 
-  mcNotchW: 110
-  mcNotchH: 32.5
-  mcNotchOffset: 5
+  mcNotchW: 35
+  mcNotchH: 26
+  mcNotchSlope: 15
 
   mountHoleR: 2.2
 
@@ -46,32 +45,27 @@ points:
   zones:
     functionKeysMatrix:
       anchor.shift: [pcbOffsetX, pcbOffsetY]
-
+      
       columns:
-        esc:
-          key.column_net: B12
-
-        f1:
-          key.spread: 1.25kx
-          key.column_net: B13
-
-        f2:
-          key.column_net: B14
-
-        f3:
-          key.column_net: B15
-
-        f4:
-          key.column_net: A8
-
         f5:
+        f6:
+        f7:
+        f8:
+
+        f9:
           key.spread: 1.25kx
-          key.column_net: A9
+        f10:
+        f11:
+        f12:
+
+        print:
+          key.spread: 1.25kx
+        scroll:
+        pause:
 
       rows:
         only:
-          shift: [0, 1.25kx]
-          row_net: B4
+          shift: [6.5kx, 1.25kx]
 
     qwertyMatrix:
       # we are swapping rows for cols to get x stagger as we are not ortho linear
@@ -80,158 +74,139 @@ points:
 
       # read as columns. see anchor.rotate
       rows:
-        lBord:
-          column_net: B12
-        q1:
-          column_net: B13
-        w2:
-          column_net: B14
-        e3:
-          column_net: B15
-        r4:
-          column_net: A8
         t5:
-          column_net: A9
+          shift: [0, 5kx]
         y6:
-          column_net: A10
+        u7:
+        i8:
+        o9:
+        p10:
+        minus:
+        plus:
+        backspace:
 
       # read as rows. see anchor.rotate
       columns:
         num:
-          key.row_net: B5
+          rows.t5:
+            skip: true
+            shift: [0, 4.75kx]
+
+          # adjust the backspace key
+          rows.backspace:
+            height: 2kx
+            shift: [0, 0.5kx]
 
         tab:
-          key.row_net: B6
+          rows.t5:
+            skip: true
+            shift: [0, 5.25kx]
 
-          # adjust the TAB key
-          rows.lBord:
-            # adjusts the width of this key but from center outwards
-            height: 1.5kx
-            # after it stretch out from center re aligns the left/start pos
-            # formula = `{height}/6`
-            shift: [0, 0.25kx]
-            # fixes the start of the next key
-            # formula = `{height}/1.2`
-            padding: 1.25kx
+          # no key here, just return
+          rows.backspace.skip: true
 
         cap:
-          key.row_net: B7
+          rows.t5:
+            shift: [0, 5.5kx]
 
-          # adjust the CAPS key
-          rows.lBord:
-            skip: true
-            padding: 1.75kx
+          # no key here, just return
+          rows.backspace.skip: true
 
         shift:
-          key.row_net: B8
+          rows.t5.skip: true
 
-          # adjust the LShift key
-          rows.lBord:
-            height: 1.25kx
-            shift: [0, 0.125kx]
-            padding: 1.125kx
+          # adjust the RShift key
+          rows.plus:
+            height: 2.75kx
+            shift: [0, 0.88kx]
+
+          # no more keys on this row after RShift
+          rows.backspace.skip: true
 
     ctrlMatrix:
       anchor.shift: [pcbOffsetX, pcbOffsetY]
 
       columns:
-        ctrl:
-          rows.only:
-            width: 1.25kx
-            adjust.shift: [0.125kx, 0]
-          key.column_net: B12
-
-        win:
-          rows.only:
-            # spread seems to be the spacing after prev
-            # set it to the width of the col before
-            # and on this first one add what the extra would have been (seems to be needed because of the use of adjust.shift on col 1)
-            spread: 1.25kx + 0.125kx
-            width: 1.25kx
-          key.column_net: B13
-
-        lAlt:
-          rows.only:
-            spread: 1.75kx
-            width: 1.25kx
-          key.column_net: B15
-
         space:
           rows.only:
-            spread: 2.5kx
-            width: 3.75kx
-          key.column_net: A9
+            #spread: 4.75kx
+            width: 3kx
+
+        rAlt:
+          rows.only:
+            spread: 2.875kx
+            width: 1.25kx
+
+        fn:
+          rows.only:
+            spread: 1.25kx
+            width: 1.25kx
+
+        rClick:
+          rows.only:
+            spread: 1.25kx
+            width: 1.25kx
+
+        rCtrl:
+          rows.only:
+            spread: 1.25kx
+            width: 1.25kx
 
       rows:
         only:
-          shift: [0, -4kx]
-          row_net: B9
+          shift: [7kx, -4kx]
 
-    mountingCapsMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [112.5, -137.6]
+    returnMatrix:
+      anchor.shift: [pcbOffsetX, pcbOffsetY]
+      columns:
+        only:
+      rows:
+        only:
+          shift: [13.7kx, -1.5kx]
 
-    mountingLeftAltMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [142.5, -170]
+    navMatrix:
+      anchor.shift: [pcbOffsetX, pcbOffsetY]
 
-    mountingSpaceLMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [182.5, -170]
+      columns:
+        left:
+          rows.gap.skip: true
+          rows.arrowUpper.skip: true
 
-    mountingSpaceRMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [225, -170]
+        middle:
+          rows.gap.skip: true
 
-    mountingTildeTMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [100, -88.1]
+        right:
+          rows.gap.skip: true
+          rows.arrowUpper.skip: true
 
-    mountingThreeTMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [157, -88.1]
+      rows:
+        arrowLower:
+          shift: [15kx, -4kx]
 
-    mountingSixTMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [214, -88.1]
-
-    mountingControllerLTMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [98, -60]
-
-    mountingBoxLMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [165, -47]
-
-    mountingBoxRMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [210, -47]
+        arrowUpper:
+        gap:
+        delRow:
+        insertRow:
 
 outlines:
   threeUKeyCaps:
     - what: rectangle
-      where: "/^ctrlMatrix_space/"
+      where: true
       bound: false
       size: [3capX, capY]
 
   keyCaps:
     - what: rectangle
-      where: "-/mounting.*Matrix_.*/"
+      where: true
       bound: false
       size: [capX, capY]
-
-  mountingHoles:
-    - what: circle
-      where: "/mounting.*Matrix_.*/"
-      bound: false
-      radius: mountHoleR
 
   switches:
     - what: rectangle
       where: true
       bound: false
       size: [swHoleX, swHoleY]
-
+  
   mxHole:
     - what: polygon
       where: {}
@@ -258,33 +233,44 @@ outlines:
         rotate: 90
 
     - what: outline
-      where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
+      where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/", "/^navMatrix.*/"]
       name: mxHole
 
   case:
     - what: polygon
       operation: stack
       points:
-        - ref: functionKeysMatrix_esc_only
-          shift: [-1pad, topPad]
-        - ref: functionKeysMatrix_esc_only
-          shift: [mcNotchOffset, mcNotchH]
-        - ref: functionKeysMatrix_esc_only
-          shift: [mcNotchOffset+mcNotchW, mcNotchH]
+        - ref: qwertyMatrix_cap_t5
+          shift: [0.5ky, -1pad]
+        - ref: qwertyMatrix_cap_t5
+          shift: [-1pad, -1pad]
+        - ref: qwertyMatrix_num_y6
+          shift: [-0.5ky, -1pad]
         - ref: functionKeysMatrix_f5_only
+          shift: [-pad, topPad]
+        - ref: functionKeysMatrix_f7_only
+          shift: [-mcNotchSlope, topPad]
+        - ref: functionKeysMatrix_f7_only
+          shift: [0, mcNotchH]
+        - ref: functionKeysMatrix_f7_only
+          shift: [mcNotchW, mcNotchH]
+        - ref: functionKeysMatrix_f7_only
+          shift: [mcNotchW + mcNotchSlope, topPad]
+        - ref: functionKeysMatrix_pause_only
           shift: [pad, topPad]
-        - ref: qwertyMatrix_cap_y6
-          shift: [-0.5ky, 0.7kx]
+        - ref: navMatrix_right_arrowLower
+          shift: [pad, -pad]
         - ref: ctrlMatrix_space_only
-          shift: [1.8kx, -1pad]
-        - ref: ctrlMatrix_ctrl_only
-          shift: [-1.2pad, -pad]
+          shift: [-1.5kx, -pad]
       fillet: 0.25pad
 
-  comboKeys:
+  combo:
     - name: case
     - operation: subtract
       name: keyCaps
+
+  combo3u:
+    - name: case
     - operation: subtract
       name: threeUKeyCaps
 
@@ -294,13 +280,13 @@ outlines:
       name: polyHoles
       adjust:
         shift: [-(swHoleX/2), swHoleY/2]
-    - operation: subtract
-      name: mountingHoles
+    # - operation: subtract
+    #   name: mountingHoles
 
 cases:
 
 pcbs:
-  pcb-left:
+  pcb-right:
     outlines:
       main:
         outline: case
@@ -320,7 +306,7 @@ pcbs:
 
       other-switches:
         what: mx
-        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
+        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/", "/^navMatrix.*/"]
         params:
           keycaps: true
           reverse: false
@@ -340,20 +326,16 @@ pcbs:
 
       other-diodes:
         what: diode
-        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
+        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/", "/^navMatrix.*/"]
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
           shift: [0, -5]
 
-      black-pill-controller:
-        what: blackpill
-        where.ref.shift: [132, -55]
-
       box-header:
         what: boxheader
-        where.ref.shift: [187, -58]
+        where.ref.shift: [204.5, -83]
         params:
           H1: "A7"
           H2: "B0"
@@ -376,8 +358,8 @@ pcbs:
           H19: "C14"
           H20: "C13"
 
-      mounting-holes:
-        what: npth
-        where: "/mounting.*Matrix_.*/"
-        params:
-          hole: mountHoleR
+      # mounting-holes:
+      #   what: npth
+      #   where: "/mounting.*Matrix_.*/"
+      #   params:
+      #     hole: mountHoleR

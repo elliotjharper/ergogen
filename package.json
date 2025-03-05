@@ -13,7 +13,8 @@
         "build": "rollup -c",
         "test": "mocha -r test/helpers/register test/index.js",
         "coverage": "nyc --reporter=html --reporter=text npm test",
-        "run-left": "node src/cli.js ./split-left/qwerty-tkl__left.yaml -o split-left/output"
+        "run-left": "node src/cli.js ./split-left/qwerty-tkl__left.yaml -o split-left/output-left",
+        "run-right": "node src/cli.js ./split-left/qwerty-tkl__right.yaml -o split-left/output-right"
     },
     "dependencies": {
         "fs-extra": "^11.1.0",

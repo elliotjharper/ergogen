@@ -7,16 +7,16 @@
 // all these consts are provided as the value from origin 
 // (eg. outline X is from center to one edge so that it can be used +/- to reach either edge)
 // unit is mm
-const pinsY = 8;
-const labelY = 5;
 const pinPitch = 2.54;
+const pinsY = (pinPitch * 6) / 2;
+const labelY = 5;
 const pinsInARow = 20;
 const firstPinX = -(((pinsInARow / 2) - 0.5) * pinPitch);
 function pinX(indexInRow) {
     return firstPinX + (indexInRow * pinPitch);
 }
 const outlineX = pinX(pinsInARow);
-const outlineY = pinsY + pinPitch;
+const outlineY = 20.6 / 2;
 const pinPadSize = 1.7526;
 const pinHoleSize = 1.0922;
 
