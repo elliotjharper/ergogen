@@ -119,3 +119,6 @@ dist
 output
 temp\b
 .DS_Store
+*.kicad_prl
+*.lck
+split-left/output-left/pcbs/fp-info-cache
