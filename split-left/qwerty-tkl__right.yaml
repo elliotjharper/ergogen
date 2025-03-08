@@ -188,6 +188,34 @@ points:
         delRow:
         insertRow:
 
+    mountingF6LMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [134, -113]
+
+    mountingF9BMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [230, -113]
+
+    mountingHomeTMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [330, -113]
+
+    mountingRightTMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [349, -189]
+
+    mountingLeftTMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [297.5, -189]
+
+    mountingSpaceRMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [187, -201]
+
+    mountingTabLMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [130, -144]
+
 outlines:
   threeUKeyCaps:
     - what: rectangle
@@ -306,7 +334,7 @@ pcbs:
 
       other-switches:
         what: mx
-        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/", "/^navMatrix.*/"]
+        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/", "/^navMatrix.*/", "/^returnMatrix.*/"]
         params:
           keycaps: true
           reverse: false
@@ -320,16 +348,18 @@ pcbs:
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
+          smdPads: false
         adjust:
           rotate: 90
           shift: [5, 0]
 
       other-diodes:
         what: diode
-        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/", "/^navMatrix.*/"]
+        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/", "/^navMatrix.*/", "/^returnMatrix.*/"]
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
+          smdPads: false
         adjust:
           shift: [0, -5]
 
@@ -358,8 +388,8 @@ pcbs:
           H19: "C14"
           H20: "C13"
 
-      # mounting-holes:
-      #   what: npth
-      #   where: "/mounting.*Matrix_.*/"
-      #   params:
-      #     hole: mountHoleR
+      mounting-holes:
+        what: npth
+        where: "/mounting.*Matrix_.*/"
+        params:
+          hole: mountHoleR
