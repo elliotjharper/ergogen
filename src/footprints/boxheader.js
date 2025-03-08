@@ -59,7 +59,7 @@ module.exports = {
 
       function pinOutput(sign, pinNumber, rowIndex, pinObj) {
         return `
-          (pad ${pinNumber} thru_hole circle (at ${pinX(rowIndex)} ${sign}${pinsY} 0) (size ${pinPadSize} ${pinPadSize}) (drill ${pinHoleSize}) (layers *.Cu *.SilkS *.Mask) ${pinObj})
+          (pad ${pinNumber} thru_hole circle (at ${pinX(rowIndex)} ${sign}${pinsY} 0) (size ${pinPadSize} ${pinPadSize}) (drill ${pinHoleSize}) (layers *.Cu *.Mask) ${pinObj})
           (fp_text user ${pinObj.name} (at ${pinX(rowIndex)} ${sign}6 ${p.r + 90}) (layer F.SilkS) (effects (font (size 0.8 0.8) (thickness 0.15))))
         `;
       }
