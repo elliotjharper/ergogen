@@ -48,24 +48,36 @@ points:
       
       columns:
         f5:
+          key.column_net: A4
         f6:
+          key.column_net: A5
         f7:
+          key.column_net: A6
         f8:
+          key.column_net: A7
 
         f9:
+          key.column_net: C13
           key.spread: 1.25kx
         f10:
+          key.column_net: C14
         f11:
+          key.column_net: C15
         f12:
+          key.column_net: A0
 
         print:
+          key.column_net: A1
           key.spread: 1.25kx
         scroll:
+          key.column_net: A2
         pause:
+          key.column_net: A3
 
       rows:
         only:
           shift: [6.5kx, 1.25kx]
+          row_net: B4
 
     qwertyMatrix:
       # we are swapping rows for cols to get x stagger as we are not ortho linear
@@ -75,19 +87,30 @@ points:
       # read as columns. see anchor.rotate
       rows:
         t5:
+          column_net: A4
           shift: [0, 5kx]
         y6:
+          column_net: A4
         u7:
+          column_net: A5
         i8:
+          column_net: A6
         o9:
+          column_net: A7
         p10:
+          column_net: C13
         minus:
+          column_net: C14
         plus:
+          column_net: C15
         backspace:
+          column_net: A0
 
       # read as rows. see anchor.rotate
       columns:
         num:
+          key.row_net: B5
+          
           rows.t5:
             skip: true
             shift: [0, 4.75kx]
@@ -98,6 +121,8 @@ points:
             shift: [0, 0.5kx]
 
         tab:
+          key.row_net: B6
+
           rows.t5:
             skip: true
             shift: [0, 5.25kx]
@@ -106,19 +131,41 @@ points:
           rows.backspace.skip: true
 
         cap:
+          key.row_net: B7
+
           rows.t5:
             shift: [0, 5.5kx]
+            column_net: A4
+
+          rows.y6.column_net: A5
+
+          rows.u7.column_net: A6
+
+          rows.i8.column_net: A7
+
+          rows.o9.column_net: C13
+
+          rows.p10.column_net: C14
+
+          rows.minus.column_net: C15
+
+          rows.plus.column_net: A0
+
+          rows.backspace.column_net: A1
 
           # no key here, just return
           rows.backspace.skip: true
 
         shift:
+          key.row_net: B8
+
           rows.t5.skip: true
 
           # adjust the RShift key
           rows.plus:
             height: 2.75kx
             shift: [0, 0.88kx]
+            column_net: A0
 
           # no more keys on this row after RShift
           rows.backspace.skip: true
@@ -128,26 +175,31 @@ points:
 
       columns:
         space:
+          key.column_net: A5
           rows.only:
             #spread: 4.75kx
             width: 3kx
 
         rAlt:
+          key.column_net: C13
           rows.only:
             spread: 2.875kx
             width: 1.25kx
 
         fn:
+          key.column_net: C14
           rows.only:
             spread: 1.25kx
             width: 1.25kx
 
         rClick:
+          key.column_net: C15
           rows.only:
             spread: 1.25kx
             width: 1.25kx
 
         rCtrl:
+          key.column_net: A0
           rows.only:
             spread: 1.25kx
             width: 1.25kx
@@ -155,38 +207,48 @@ points:
       rows:
         only:
           shift: [7kx, -4kx]
+          row_net: B9
 
     returnMatrix:
       anchor.shift: [pcbOffsetX, pcbOffsetY]
       columns:
         only:
+          key.column_net: A0
       rows:
         only:
           shift: [13.7kx, -1.5kx]
+          row_net: B6
 
     navMatrix:
       anchor.shift: [pcbOffsetX, pcbOffsetY]
 
       columns:
         left:
+          key.column_net: A1
           rows.gap.skip: true
           rows.arrowUpper.skip: true
 
         middle:
+          key.column_net: A2
           rows.gap.skip: true
 
         right:
+          key.column_net: A3
           rows.gap.skip: true
           rows.arrowUpper.skip: true
 
       rows:
         arrowLower:
+          row_net: B9
           shift: [15kx, -4kx]
 
         arrowUpper:
+          row_net: B8
         gap:
         delRow:
+          row_net: B6
         insertRow:
+          row_net: B5
 
     mountingF6LMatrix:
       rows.only:
