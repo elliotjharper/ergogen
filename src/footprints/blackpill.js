@@ -83,7 +83,7 @@ module.exports = {
             pinKey = screenedPinKey(pinKey);
 
             return `
-                (pad ${pinKey} thru_hole circle (at ${pinX(rowIndex)} ${sign}${pinsY} 0) (size ${pinPadSize} ${pinPadSize}) (drill ${pinHoleSize}) (layers *.Cu *.SilkS *.Mask) ${p[pinKey] ?? 'U1'})
+                (pad ${pinKey} thru_hole circle (at ${pinX(rowIndex)} ${sign}${pinsY} 0) (size ${pinPadSize} ${pinPadSize}) (drill ${pinHoleSize}) (layers *.Cu *.Mask) ${p[pinKey] ?? 'U1'})
                 (fp_text user ${pinKey} (at ${pinX(rowIndex)} ${sign}${labelY} ${p.r + 90}) (layer F.SilkS) (effects (font (size 0.8 0.8) (thickness 0.15))))
             `;
         }
