@@ -13,9 +13,12 @@
         "build": "rollup -c",
         "test": "mocha -r test/helpers/register test/index.js",
         "coverage": "nyc --reporter=html --reporter=text npm test",
-        "run-left": "node src/cli.js ./split-tkl/qwerty-tkl__left.yaml -o split-left/output-left",
-        "run-right": "node src/cli.js ./split-tkl/qwerty-tkl__right.yaml -o split-left/output-right",
-        "left-plate-to-stl": "npx @jscad/cli@1 ./split-tkl/output-left/cases/plate.jscad"
+        "left:ergoen": "node src/cli.js ./split-tkl/qwerty-tkl__left.yaml -o split-tkl/output-left",
+        "left:plate-stl": "openjscad ./split-tkl/output-left/cases/plate.jscad -of stla -o ./split-tkl/output-left/cases/plate.stl",
+        "left:plate-test-stl": "openjscad ./split-tkl/output-left/cases/plate.jscad -of stla -o ./split-tkl/output-left/cases/plate.stl",
+        "left": "npm run left:ergoen && npm run left:plate-stl",
+        "right:ergoen": "node src/cli.js ./split-tkl/qwerty-tkl__right.yaml -o split-tkl/output-right",
+        "right": "npm run right:ergogen"
     },
     "dependencies": {
         "fs-extra": "^11.1.0",
@@ -27,6 +30,7 @@
         "yargs": "^17.6.2"
     },
     "devDependencies": {
+        "@jscad/cli": "^1.10.0",
         "@rollup/plugin-commonjs": "^24.0.1",
         "@rollup/plugin-json": "^6.0.0",
         "chai": "^4.3.7",

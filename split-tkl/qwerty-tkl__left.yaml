@@ -271,6 +271,22 @@ outlines:
       where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
       name: mxHole
 
+  plateTestBlank:
+    - what: polygon
+      where : {}
+      bound: false
+      points:
+        - { shift: [0, 0] }
+        - { shift: [30, 0] }
+        - { shift: [0, -34] }
+        - { shift: [-30, 0] }
+
+  plateTestOutline:
+    - name: plateTestBlank
+    - operation: subtract
+      name: mxHole
+      adjust.shift: [8, -10]
+
   pcbOutline:
     - what: polygon
       operation: stack
@@ -315,6 +331,10 @@ cases:
       name: plateOutline
       extrude: plateThickness
 
+  plateTest:
+    - what: outline
+      name: plateTestOutline
+      extrude: plateThickness
 
 pcbs:
   pcb-left:
