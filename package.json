@@ -13,8 +13,9 @@
         "build": "rollup -c",
         "test": "mocha -r test/helpers/register test/index.js",
         "coverage": "nyc --reporter=html --reporter=text npm test",
-        "run-left": "node src/cli.js ./split-left/qwerty-tkl__left.yaml -o split-left/output-left",
-        "run-right": "node src/cli.js ./split-left/qwerty-tkl__right.yaml -o split-left/output-right"
+        "run-left": "node src/cli.js ./split-tkl/qwerty-tkl__left.yaml -o split-left/output-left",
+        "run-right": "node src/cli.js ./split-tkl/qwerty-tkl__right.yaml -o split-left/output-right",
+        "left-plate-to-stl": "npx @jscad/cli@1 ./split-tkl/output-left/cases/plate.jscad"
     },
     "dependencies": {
         "fs-extra": "^11.1.0",

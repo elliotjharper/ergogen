@@ -22,6 +22,7 @@ units:
   # swHoleX/swHoleY is the size of a keyswitch
   swHoleX: 14
   swHoleY: 14
+  swHoleBump: 0.25
 
   # pad is used to bump the edges of the case polygon out
   pad: 12
@@ -36,6 +37,8 @@ units:
 
   mountHoleR: 2.2
   mountHolePassthrough: 3
+
+  plateThickness: 3.5
 
 points:
   key:
@@ -227,12 +230,6 @@ outlines:
       bound: false
       radius: mountHolePassthrough
 
-  switches:
-    - what: rectangle
-      where: true
-      bound: false
-      size: [swHoleX, swHoleY]
-
   mxHole:
     - what: polygon
       where: {}
@@ -240,15 +237,15 @@ outlines:
       points:
         - { shift: [0, 0] }
         - { shift: [5, 0] }
-        - { shift: [0, -0.3] }
+        - { shift: [0, -swHoleBump] }
         - { shift: [4, 0] }
-        - { shift: [0, 0.3] }
+        - { shift: [0, swHoleBump] }
         - { shift: [5, 0] }
         - { shift: [0, -14] }
         - { shift: [-5, 0] }
-        - { shift: [0, 0.3] }
+        - { shift: [0, swHoleBump] }
         - { shift: [-4, 0] }
-        - { shift: [0, -0.3] }
+        - { shift: [0, -swHoleBump] }
         - { shift: [-5, 0] }
 
   plateTopCutOff:
@@ -260,10 +257,10 @@ outlines:
       points:
         - { shift: [0, 0] }
         - { shift: [150, 0] }
-        - { shift: [0, -25] }
+        - { shift: [0, -24] }
         - { shift: [-150, 0] }
 
-  polyHoles:
+  plateSwitchHoles:
     - what: outline
       where: "/^qwertyMatrix_.*/"
       name: mxHole
@@ -274,7 +271,7 @@ outlines:
       where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
       name: mxHole
 
-  case:
+  pcbOutline:
     - what: polygon
       operation: stack
       points:
@@ -295,16 +292,16 @@ outlines:
       fillet: 0.25pad
 
   comboKeys:
-    - name: case
+    - name: pcbOutline
     - operation: subtract
       name: keyCaps
     - operation: subtract
       name: threeUKeyCaps
 
-  plate:
-    - name: case
+  plateOutline:
+    - name: pcbOutline
     - operation: subtract
-      name: polyHoles
+      name: plateSwitchHoles
       adjust:
         shift: [-(swHoleX/2), swHoleY/2]
     - operation: subtract
@@ -313,12 +310,17 @@ outlines:
       name: plateTopCutOff
 
 cases:
+  plate:
+    - what: outline
+      name: plateOutline
+      extrude: plateThickness
+
 
 pcbs:
   pcb-left:
     outlines:
       main:
-        outline: case
+        outline: pcbOutline
 
     footprints:
       qwerty-switches:
