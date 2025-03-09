@@ -35,6 +35,7 @@ units:
   mcNotchOffset: 5
 
   mountHoleR: 2.2
+  mountHolePassthrough: 3
 
 points:
   key:
@@ -224,7 +225,7 @@ outlines:
     - what: circle
       where: "/mounting.*Matrix_.*/"
       bound: false
-      radius: mountHoleR
+      radius: mountHolePassthrough
 
   switches:
     - what: rectangle
@@ -249,6 +250,18 @@ outlines:
         - { shift: [-4, 0] }
         - { shift: [0, -0.3] }
         - { shift: [-5, 0] }
+
+  plateTopCutOff:
+    - what: polygon
+      where: "/^functionKeysMatrix_esc_only/"
+      bound: false
+      adjust:
+        shift: [-15, 35]
+      points:
+        - { shift: [0, 0] }
+        - { shift: [150, 0] }
+        - { shift: [0, -25] }
+        - { shift: [-150, 0] }
 
   polyHoles:
     - what: outline
@@ -288,7 +301,7 @@ outlines:
     - operation: subtract
       name: threeUKeyCaps
 
-  comboSwitchHoles:
+  plate:
     - name: case
     - operation: subtract
       name: polyHoles
@@ -296,6 +309,8 @@ outlines:
         shift: [-(swHoleX/2), swHoleY/2]
     - operation: subtract
       name: mountingHoles
+    - operation: subtract
+      name: plateTopCutOff
 
 cases:
 
