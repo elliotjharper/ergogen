@@ -22,6 +22,7 @@ units:
   # swHoleX/swHoleY is the size of a keyswitch
   swHoleX: 14
   swHoleY: 14
+  swHoleBump: 0.25
 
   # pad is used to bump the edges of the case polygon out
   pad: 12
@@ -35,6 +36,9 @@ units:
   mcNotchOffset: 5
 
   mountHoleR: 2.2
+  mountHolePassthrough: 3
+
+  plateThickness: 3.5
 
 points:
   key:
@@ -224,13 +228,7 @@ outlines:
     - what: circle
       where: "/mounting.*Matrix_.*/"
       bound: false
-      radius: mountHoleR
-
-  switches:
-    - what: rectangle
-      where: true
-      bound: false
-      size: [swHoleX, swHoleY]
+      radius: mountHolePassthrough
 
   mxHole:
     - what: polygon
@@ -239,18 +237,30 @@ outlines:
       points:
         - { shift: [0, 0] }
         - { shift: [5, 0] }
-        - { shift: [0, -0.3] }
+        - { shift: [0, -swHoleBump] }
         - { shift: [4, 0] }
-        - { shift: [0, 0.3] }
+        - { shift: [0, swHoleBump] }
         - { shift: [5, 0] }
         - { shift: [0, -14] }
         - { shift: [-5, 0] }
-        - { shift: [0, 0.3] }
+        - { shift: [0, swHoleBump] }
         - { shift: [-4, 0] }
-        - { shift: [0, -0.3] }
+        - { shift: [0, -swHoleBump] }
         - { shift: [-5, 0] }
 
-  polyHoles:
+  plateTopCutOff:
+    - what: polygon
+      where: "/^functionKeysMatrix_esc_only/"
+      bound: false
+      adjust:
+        shift: [-15, 35]
+      points:
+        - { shift: [0, 0] }
+        - { shift: [150, 0] }
+        - { shift: [0, -24] }
+        - { shift: [-150, 0] }
+
+  plateSwitchHoles:
     - what: outline
       where: "/^qwertyMatrix_.*/"
       name: mxHole
@@ -261,7 +271,23 @@ outlines:
       where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
       name: mxHole
 
-  case:
+  plateTestBlank:
+    - what: polygon
+      where : {}
+      bound: false
+      points:
+        - { shift: [0, 0] }
+        - { shift: [30, 0] }
+        - { shift: [0, -34] }
+        - { shift: [-30, 0] }
+
+  plateTestOutline:
+    - name: plateTestBlank
+    - operation: subtract
+      name: mxHole
+      adjust.shift: [8, -10]
+
+  pcbOutline:
     - what: polygon
       operation: stack
       points:
@@ -282,28 +308,39 @@ outlines:
       fillet: 0.25pad
 
   comboKeys:
-    - name: case
+    - name: pcbOutline
     - operation: subtract
       name: keyCaps
     - operation: subtract
       name: threeUKeyCaps
 
-  comboSwitchHoles:
-    - name: case
+  plateOutline:
+    - name: pcbOutline
     - operation: subtract
-      name: polyHoles
+      name: plateSwitchHoles
       adjust:
         shift: [-(swHoleX/2), swHoleY/2]
     - operation: subtract
       name: mountingHoles
+    - operation: subtract
+      name: plateTopCutOff
 
 cases:
+  plate:
+    - what: outline
+      name: plateOutline
+      extrude: plateThickness
+
+  plateTest:
+    - what: outline
+      name: plateTestOutline
+      extrude: plateThickness
 
 pcbs:
   pcb-left:
     outlines:
       main:
-        outline: case
+        outline: pcbOutline
 
     footprints:
       qwerty-switches:
