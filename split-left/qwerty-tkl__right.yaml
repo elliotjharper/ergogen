@@ -323,7 +323,7 @@ outlines:
         rotate: 90
 
     - what: outline
-      where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/", "/^navMatrix.*/"]
+      where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/", "/^navMatrix.*/", "/^returnMatrix.*/"]
       name: mxHole
 
   case:
