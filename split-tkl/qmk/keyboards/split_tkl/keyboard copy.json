@@ -14,11 +14,16 @@
     },
     "matrix_pins": {
         "cols": [
-            "GP1", "GP2", "GP3"
+            "GP1", "GP2", "GP3", "GP4", "GP5", "GP6", "GP7", 
+            "GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP16", "GP17", "GP18"
         ],
         "rows": [
             "GP19", 
-            "GP20"
+            "GP20", 
+            "GP21", 
+            "GP22", 
+            "GP23", 
+            "GP24"
         ]
     },
     "processor": "RP2040",
@@ -31,14 +36,17 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                // matrix: [r, c]
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 0, "y": 0},
                 {"matrix": [0, 2], "x": 0, "y": 0},
 
                 {"matrix": [1, 0], "x": 0, "y": 0},
                 {"matrix": [1, 1], "x": 0, "y": 0},
-                {"matrix": [1, 2], "x": 0, "y": 0}
+                {"matrix": [1, 2], "x": 0, "y": 0},
+
+                {"matrix": [2, 0], "x": 0, "y": 0},
+                {"matrix": [2, 1], "x": 0, "y": 0},
+                {"matrix": [2, 2], "x": 0, "y": 0}
             ]
         }
     }
