@@ -15,8 +15,8 @@
         "coverage": "nyc --reporter=html --reporter=text npm test",
         "left:ergoen": "node src/cli.js ./split-tkl/qwerty-tkl__left.yaml -o split-tkl/output-left",
         "left:plate-stl": "openjscad ./split-tkl/output-left/cases/plate.jscad -of stla -o ./split-tkl/output-left/cases/plate.stl",
-        "left:plate-test-stl": "openjscad ./split-tkl/output-left/cases/plate.jscad -of stla -o ./split-tkl/output-left/cases/plate.stl",
-        "left": "npm run left:ergoen && npm run left:plate-stl",
+        "left:plate-test-stl": "openjscad ./split-tkl/output-left/cases/plateTest.jscad -of stla -o ./split-tkl/output-left/cases/plateTest.stl",
+        "left": "npm run left:ergoen && npm run left:plate-stl && npm run left:plate-test-stl",
         "right:ergoen": "node src/cli.js ./split-tkl/qwerty-tkl__right.yaml -o split-tkl/output-right",
         "right": "npm run right:ergogen"
     },
