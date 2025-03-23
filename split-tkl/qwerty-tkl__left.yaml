@@ -228,7 +228,7 @@ outlines:
     - what: circle
       where: "/mounting.*Matrix_.*/"
       bound: false
-      radius: mountHolePassthrough
+      radius: mountHoleR/2
 
   mxHole:
     - what: polygon
@@ -322,8 +322,6 @@ outlines:
         shift: [-(swHoleX/2), swHoleY/2]
     - operation: subtract
       name: mountingHoles
-    - operation: subtract
-      name: plateTopCutOff
 
 cases:
   plate:
