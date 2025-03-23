@@ -19,3 +19,33 @@
 | R4 | g  | h     | j   | k   | l   | ;   | @    | #     |      |      |      |
 | R5 | b  | n     | m   | ,   | .   | /   |      | rshif |      | u    |      |
 | R6 |    | space |     |     | alt | fn  | rclk | rctrl | l    | d    | r    |
+
+# Blackpill -> Pi mapping
+
+
+| Keeb Half | Matrix Pin | Blackpill | Pi   |
+| -         | -          | -         | -    |
+| Left      | C1         | B12       | GP1  |
+| Left      | C2         | B13       | GP2  |
+| Left      | C3         | B14       | GP3  |
+| Left      | C4         | B15       | GP4  |
+| Left      | C5         | A8        | GP5  |
+| Left      | C6         | A9        | GP6  |
+| Left      | C7         | A10       | GP7  |
+| Right     | C8         | A4        | GP8  |
+| Right     | C9         | A5        | GP9  |
+| Right     | C10        | A6        | GP10 |
+| Right     | C11        | A7        | GP11 |
+| Right     | C12        | C13       | GP12 |
+| Right     | C13        | C14       | GP13 |
+| Right     | C14        | C15       | GP14 |
+| Right     | C15        | A0        | GP15 |
+| Right     | C16        | A1        | GP16 |
+| Right     | C17        | A2        | GP17 |
+| Right     | C18        | A3        | GP18 |
+| Row       | R1         | B4        | GP19 |
+| Row       | R2         | B5        | GP20 |
+| Row       | R3         | B6        | GP21 |
+| Row       | R4         | B7        | GP22 |
+| Row       | R5         | B8        | GP23 |
+| Row       | R6         | B9        | GP24 |
