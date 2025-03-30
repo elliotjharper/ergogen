@@ -112,4 +112,15 @@ Working on QMK firmware now.
     - tried dumbing the `keymap.c` file down to just one key, did `Layout(KC_ESC)`, got new error, discovered that the keyobard.json file also contains a `layout` section that identifies parts of the matrix, realised that the macro invoked in the `keymap.c` must match the name of the layout in the `keyboard.json` file.
     - reduced the `keymap.c` to use a macro called `LAYOUT(KC_A)` and updated `keyboard.json` to be called layout and only have one entry for [0,0] and compiled and successfully flashed it!
 
-        
+- coming back to write how it went
+    - learnt that qmk has levels of inheritance, there is a base keyboard labelled quantum, for each part of the compilation your file takes precedence but inherits from the quantum base. Mainly this was interesting to learn why my keyboard file could be so barebones as any file i do not supply will come from quantum.
+    - the keyboard.json file is like the declaration of keys and labels the layout macro, then the keymap.c can set the keycodes
+    - GOTCHA: I was trying to write the keyboard.json and the keymap.c in a way where the file would be the most readable. This actually lead me to write the keyboard.json in a column at a time, however that created an array like [c1r1, c1r2, c2r1, c2r2] but the keymap.c is always written in rows at a time like [c1r1, c2r1, c1r2, c2r2] and this meant that the keycodes I was setting were getting mapped wrong (compare those two arrays)
+    - I resolved that gotcha and then was all good ^
+
+- PI PICO ALSO HAS PINS THAT YOU CANNOT USE
+    - GP0-GP22 fine
+    - GP23, GP24, GP25 have conflicts with other parts
+    - GP26, GP27, GP28 all good.
+    - no more.....
+    
