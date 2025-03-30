@@ -40,6 +40,12 @@ units:
 
   plateThickness: 3.5
 
+  boxHeaderW: 33
+  boxHeaderH: 9
+
+  blackpillW: 53
+  blackpillH: 20.5
+
 points:
   key:
     # padding is Y (but at 90 it is X)
@@ -273,13 +279,35 @@ outlines:
 
   plateTestBlank:
     - what: polygon
-      where : {}
+      where: {}
       bound: false
       points:
         - { shift: [0, 0] }
         - { shift: [30, 0] }
         - { shift: [0, -34] }
         - { shift: [-30, 0] }
+
+  blackpillOutline:
+    - what: polygon
+      where: {}
+      bound: false
+      adjust.shift: [(132 - (blackpillW/2)), (-56 + (blackpillH/2))]
+      points:
+       - { shift: [0, 0] }
+       - { shift: [blackpillW, 0] }
+       - { shift: [0, -blackpillH] }
+       - { shift: [-blackpillW, 0] }
+
+  boxHeaderOutline:
+    - what: polygon
+      where: {}
+      bound: false
+      adjust.shift: [(187 - (boxHeaderW/2)), (-58 + (boxHeaderH/2))]
+      points:
+       - { shift: [0, 0] }
+       - { shift: [boxHeaderW, 0] }
+       - { shift: [0, -boxHeaderH] }
+       - { shift: [-boxHeaderW, 0] }
 
   plateTestOutline:
     - name: plateTestBlank
@@ -314,7 +342,7 @@ outlines:
     - operation: subtract
       name: threeUKeyCaps
 
-  plateOutline:
+  caseOutline:
     - name: pcbOutline
     - operation: subtract
       name: plateSwitchHoles
@@ -322,11 +350,15 @@ outlines:
         shift: [-(swHoleX/2), swHoleY/2]
     - operation: subtract
       name: mountingHoles
+    - operation: subtract
+      name: blackpillOutline
+    - operation: subtract
+      name: boxHeaderOutline
 
 cases:
   plate:
     - what: outline
-      name: plateOutline
+      name: caseOutline
       extrude: plateThickness
 
   plateTest:
@@ -334,7 +366,7 @@ cases:
       name: plateTestOutline
       extrude: plateThickness
 
-pcbs:
+pcbss:
   pcb-left:
     outlines:
       main:

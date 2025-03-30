@@ -123,4 +123,12 @@ Working on QMK firmware now.
     - GP23, GP24, GP25 have conflicts with other parts
     - GP26, GP27, GP28 all good.
     - no more.....
-    
+
+- need to sort the cases out now!
+    - blackpill outline:    w53mm   h20.5mm
+    - idc header outline:   w33mm   h9mm
+    - solder / diode back depth requirement 3mm
+    - have gone with a further 2mm behind that for some rigidity
+    - board outer spacing offset 1mm
+    - board outer wall thickness offset 1.5mm
+    - hole r = 2.2 works for the m2 screws to self tap
