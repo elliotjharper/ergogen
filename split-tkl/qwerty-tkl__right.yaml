@@ -35,6 +35,9 @@ units:
 
   mountHoleR: 2.2
 
+  boxHeaderW: 33
+  boxHeaderH: 9
+
 points:
   key:
     # padding is Y (but at 90 it is X)
@@ -326,6 +329,23 @@ outlines:
       where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/", "/^navMatrix.*/", "/^returnMatrix.*/"]
       name: mxHole
 
+  mountingHoles:
+    - what: circle
+      where: "/mounting.*Matrix_.*/"
+      bound: false
+      radius: mountHoleR/2
+
+  boxHeaderOutline:
+    - what: polygon
+      where: {}
+      bound: false
+      adjust.shift: [(204.5 - (boxHeaderW/2)), (-83 + (boxHeaderH/2))]
+      points:
+       - { shift: [0, 0] }
+       - { shift: [boxHeaderW, 0] }
+       - { shift: [0, -boxHeaderH] }
+       - { shift: [-boxHeaderW, 0] }
+
   case:
     - what: polygon
       operation: stack
@@ -359,19 +379,16 @@ outlines:
     - operation: subtract
       name: keyCaps
 
-  combo3u:
-    - name: case
-    - operation: subtract
-      name: threeUKeyCaps
-
-  comboSwitchHoles:
+  caseOutline:
     - name: case
     - operation: subtract
       name: polyHoles
       adjust:
         shift: [-(swHoleX/2), swHoleY/2]
-    # - operation: subtract
-    #   name: mountingHoles
+    - operation: subtract
+      name: mountingHoles
+    - operation: subtract
+      name: boxHeaderOutline
 
 cases:
 
