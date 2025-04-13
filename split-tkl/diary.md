@@ -132,3 +132,9 @@ Working on QMK firmware now.
     - board outer spacing offset 1mm
     - board outer wall thickness offset 1.5mm
     - hole r = 2.2 works for the m2 screws to self tap
+
+
+- controller sizes
+    - row spacings are inclusive (6 pins = one row in pin 1, other row in pin 6)
+    - pi pico = 8
+    - blackpill = 7
