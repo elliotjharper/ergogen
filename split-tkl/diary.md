@@ -112,6 +112,11 @@ Working on QMK firmware now.
     - tried dumbing the `keymap.c` file down to just one key, did `Layout(KC_ESC)`, got new error, discovered that the keyobard.json file also contains a `layout` section that identifies parts of the matrix, realised that the macro invoked in the `keymap.c` must match the name of the layout in the `keyboard.json` file.
     - reduced the `keymap.c` to use a macro called `LAYOUT(KC_A)` and updated `keyboard.json` to be called layout and only have one entry for [0,0] and compiled and successfully flashed it!
 
+- TO COMPILE NEW VERSION OF FIRMWARE
+    - copy from this repo `/split-tkl/qmk/keyboards/split_tkl/` into the `%userprofile%/qmk-firmware/keyboards/split_tkl/`
+    - open `qmk msys`
+    - run `qmk compile -kb split_tkl -km elliotjharper`
+
 - coming back to write how it went
     - learnt that qmk has levels of inheritance, there is a base keyboard labelled quantum, for each part of the compilation your file takes precedence but inherits from the quantum base. Mainly this was interesting to learn why my keyboard file could be so barebones as any file i do not supply will come from quantum.
     - the keyboard.json file is like the declaration of keys and labels the layout macro, then the keymap.c can set the keycodes

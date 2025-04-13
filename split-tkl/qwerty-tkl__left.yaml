@@ -46,6 +46,9 @@ units:
   blackpillW: 53
   blackpillH: 20.5
 
+  converterW: 54
+  converterH: 28
+
 points:
   key:
     # padding is Y (but at 90 it is X)
@@ -355,6 +358,16 @@ outlines:
     - operation: subtract
       name: boxHeaderOutline
 
+  converterOutline:
+    - what: polygon
+      where: {}
+      bound: false
+      points:
+        - { shift: [0, 0] }
+        - { shift: [converterW, 0] }
+        - { shift: [0, -converterH] }
+        - { shift: [-converterW, 0] }
+
 cases:
   plate:
     - what: outline
@@ -448,3 +461,16 @@ pcbss:
         where: "/mounting.*Matrix_.*/"
         params:
           hole: mountHoleR
+  converter:
+    outlines:
+      main:
+        outline: converterOutline
+    
+    footprints:
+      black-pill-controller:
+        what: blackpill
+        where.ref.shift: [(converterW / 2), -((converterH / 2) + 4)]
+
+      pico-controller:
+        what: pico
+        where.ref.shift: [(converterW / 2), -((converterH / 2) - 3)]

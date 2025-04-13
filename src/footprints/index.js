@@ -14,6 +14,7 @@ module.exports = {
     oled: require('./oled'),
     omron: require('./omron'),
     pad: require('./pad'),
+    pico: require('./pico'),
     promicro: require('./promicro'),
     rgb: require('./rgb'),
     rotary: require('./rotary'),
