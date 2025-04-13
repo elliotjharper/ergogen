@@ -22,6 +22,8 @@
 
 # Blackpill -> Pi mapping
 
+PiPin is me addressing the pins in a way that is translatable to the physical board
+L1-19 or R1-19 where the usb is the top of the board and pins start with 1 at the top
 
 | Keeb Half | Matrix Pin | Blackpill | Pi   |
 | -         | -          | -         | -    |
