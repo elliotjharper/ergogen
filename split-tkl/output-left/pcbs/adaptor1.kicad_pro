@@ -51,13 +51,7 @@
           "min_clearance": 0.508
         }
       },
-      "diff_pair_dimensions": [
-        {
-          "gap": 0.0,
-          "via_gap": 0.0,
-          "width": 0.0
-        }
-      ],
+      "diff_pair_dimensions": [],
       "drc_exclusions": [],
       "meta": {
         "filename": "board_design_settings.json",
@@ -117,7 +111,7 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.1,
+        "min_clearance": 0.0,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.075,
         "min_hole_clearance": 0.25,
@@ -178,9 +172,7 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [
-        0.0
-      ],
+      "track_widths": [],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
           "corner_radius_percentage": 80,
@@ -207,12 +199,7 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [
-        {
-          "diameter": 0.0,
-          "drill": 0.0
-        }
-      ],
+      "via_dimensions": [],
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
@@ -234,7 +221,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "pcb-left-rc1.kicad_pro",
+    "filename": "adaptor1.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -266,206 +253,6 @@
       {
         "netclass": "Default",
         "pattern": ""
-      },
-      {
-        "netclass": "Default",
-        "pattern": "B12"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "num_lBord"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "B13"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "num_q1"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "B14"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "num_w2"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "B15"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "num_e3"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "A8"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "num_r4"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "A9"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "num_t5"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "A10"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "num_y6"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "tab_lBord"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "tab_q1"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "tab_w2"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "tab_e3"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "tab_r4"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "tab_t5"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "tab_y6"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "cap_q1"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "cap_w2"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "cap_e3"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "cap_r4"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "cap_t5"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "cap_y6"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "shift_lBord"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "shift_q1"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "shift_w2"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "shift_e3"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "shift_r4"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "shift_t5"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "shift_y6"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "esc_only"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "f1_only"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "f2_only"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "f3_only"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "f4_only"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "f5_only"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "ctrl_only"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "win_only"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "lAlt_only"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "space_only"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "B5"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "B6"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "B7"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "B8"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "B4"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "B9"
       },
       {
         "netclass": "Default",
@@ -549,6 +336,34 @@
       },
       {
         "netclass": "Default",
+        "pattern": "B12"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "B13"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "B14"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "B15"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "A8"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "A9"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "A10"
+      },
+      {
+        "netclass": "Default",
         "pattern": "X0"
       },
       {
@@ -565,6 +380,30 @@
       },
       {
         "netclass": "Default",
+        "pattern": "B4"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "B5"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "B6"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "B7"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "B8"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "B9"
+      },
+      {
+        "netclass": "Default",
         "pattern": "b5V"
       },
       {
@@ -574,6 +413,70 @@
       {
         "netclass": "Default",
         "pattern": "b3V3"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z5"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z6"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z7"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z8"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z9"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z10"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "GP28"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z11"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "GP27"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z12"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z13"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z14"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z1"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z2"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z3"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Z4"
       }
     ]
   },
@@ -582,7 +485,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "adaptor1/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",

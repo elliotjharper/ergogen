@@ -9,7 +9,7 @@
 // unit is mm
 const pinPitch = 2.54;
 const pinsY = (pinPitch * 7) / 2;
-const labelY = 5;
+const labelY = 6;
 const pinsInARow = 20;
 const firstPinX = -(((pinsInARow / 2) - 0.5) * pinPitch);
 function pinX(indexInRow) {
@@ -74,10 +74,14 @@ function addParamPins(paramsObj, pinKeys) {
         paramsObj[pinKey] = { type: 'net', value: pinOverrides[pinKey] ?? pinKey };
     }
 }
+
 function buildParams() {
     const paramsObj = {
         designator: 'MCU',
-        orientation: 'down'
+        orientation: 'down',
+        drawOutline: true,
+        drawLabel: true,
+        drawPinLabels: true
     };
 
     addParamPins(paramsObj, topRowPinKeys);
@@ -89,30 +93,41 @@ function buildParams() {
 module.exports = {
     params: buildParams(),
     body: p => {
-        const header = `
+        let header = `
             (layer F.Cu) (tedit 5B307E4C)
             ${p.at /* parametric position */}
     
             ${'' /* footprint reference */}
             (fp_text reference "${p.ref}" (at 0 0) (layer F.SilkS) ${p.ref_hide} (effects (font (size 1.27 1.27) (thickness 0.15))))
-            (fp_text value "" (at 0 0) (layer F.SilkS) hide (effects (font (size 1.27 1.27) (thickness 0.15))))
-        
-            ${''/* component outline */}
-            (fp_line (start -${outlineX} ${outlineY}) (end ${outlineX} ${outlineY}) (layer F.SilkS) (width 0.15))
-            (fp_line (start ${outlineX} ${outlineY}) (end ${outlineX} -${outlineY}) (layer F.SilkS) (width 0.15))
-            (fp_line (start ${outlineX} -${outlineY}) (end -${outlineX} -${outlineY}) (layer F.SilkS) (width 0.15))
-            (fp_line (start -${outlineX} -${outlineY}) (end -${outlineX} ${outlineY}) (layer F.SilkS) (width 0.15))
+            (fp_text value "" (at 0 0) (layer F.SilkS) hide (effects (font (size 1.27 1.27) (thickness 0.15))))            
         `;
+
+        if(p.drawOutline) {
+            /* component outline */
+            header += `
+                (fp_line (start -${outlineX} ${outlineY}) (end ${outlineX} ${outlineY}) (layer F.SilkS) (width 0.15))
+                (fp_line (start ${outlineX} ${outlineY}) (end ${outlineX} -${outlineY}) (layer F.SilkS) (width 0.15))
+                (fp_line (start ${outlineX} -${outlineY}) (end -${outlineX} -${outlineY}) (layer F.SilkS) (width 0.15))
+                (fp_line (start -${outlineX} -${outlineY}) (end -${outlineX} ${outlineY}) (layer F.SilkS) (width 0.15))
+            `;
+        }
 
         function pinOutput(pos, rowIndex, pinKey) {
             const sign = pos ? '' : '-';
 
             pinKey = screenedPinKey(pinKey);
 
-            return `
+            let output = `
                 (pad ${pinKey} thru_hole circle (at ${pinX(rowIndex)} ${sign}${pinsY} 0) (size ${pinPadSize} ${pinPadSize}) (drill ${pinHoleSize}) (layers *.Cu *.Mask) ${p[pinKey] ?? 'U1'})
-                (fp_text user ${pinKey} (at ${pinX(rowIndex)} ${sign}${labelY} ${p.r + 90}) (layer F.SilkS) (effects (font (size 0.8 0.8) (thickness 0.15))))
             `;
+            
+            if(p.drawPinLabels) {
+                output += `
+                    (fp_text user ${pinKey} (at ${pinX(rowIndex)} ${sign}${labelY} ${p.r + 90}) (layer F.SilkS) (effects (font (size 0.8 0.8) (thickness 0.15))))
+                `;
+            }
+
+            return output;
         }
 
         function pinRow(down, rowPinKeys) {

@@ -46,8 +46,8 @@ units:
   blackpillW: 53
   blackpillH: 20.5
 
-  converterW: 54
-  converterH: 28
+  converterW: 65
+  converterH: 30
 
 points:
   key:
@@ -379,7 +379,7 @@ cases:
       name: plateTestOutline
       extrude: plateThickness
 
-pcbss:
+pcbs:
   pcb-left:
     outlines:
       main:
@@ -461,6 +461,7 @@ pcbss:
         where: "/mounting.*Matrix_.*/"
         params:
           hole: mountHoleR
+
   converter:
     outlines:
       main:
@@ -469,8 +470,38 @@ pcbss:
     footprints:
       black-pill-controller:
         what: blackpill
+        params:
+          drawOutline: false
+          drawPinLabels: true
         where.ref.shift: [(converterW / 2), -((converterH / 2) + 4)]
 
       pico-controller:
         what: pico
+        params:
+          drawOutline: false
+          drawPinLabels: true
         where.ref.shift: [(converterW / 2), -((converterH / 2) - 3)]
+
+      tl-hole:
+        what: npth
+        where.ref.shift: [2.5, -2.5]
+        params:
+          hole: mountHoleR
+
+      tr-hole:
+        what: npth
+        where.ref.shift: [62.5, -2.5]
+        params:
+          hole: mountHoleR
+
+      bl-hole:
+        what: npth
+        where.ref.shift: [2.5, -27.5]
+        params:
+          hole: mountHoleR
+
+      br-hole:
+        what: npth
+        where.ref.shift: [62.5, -27.5]
+        params:
+          hole: mountHoleR
