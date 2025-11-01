@@ -13,3 +13,16 @@ Next steps:
 - write nets onto the column start keys
 - write nets onto the row start keys
 -
+
+NOTES about last version
+- left half 35pcs
+- right half 51pcs
+
+New switches
+Either
+- kailh low profile choc pale blue 1350
+    - 70gf clicky
+- gateron low profile ks-33 blue
+    - 65gf clicky
+- Gateron Jade Series Low Profile
+    - 65gf tactile 

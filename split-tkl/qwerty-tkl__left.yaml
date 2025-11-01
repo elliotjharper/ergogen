@@ -127,13 +127,17 @@ points:
             # formula = `{height}/1.2`
             padding: 1.25kx
 
+          rows.y6.skip: true  # skip the y key
+
         cap:
           key.row_net: B7
 
           # adjust the CAPS key
           rows.lBord:
-            skip: true
-            padding: 1.75kx
+            skip: true        # skip the caps key itself
+            padding: 1.75kx   # move the start of the caps row over to the right
+          
+          rows.y6.skip: true  # skip the h key
 
         shift:
           key.row_net: B8
@@ -330,8 +334,8 @@ outlines:
           shift: [mcNotchOffset+mcNotchW, mcNotchH]
         - ref: functionKeysMatrix_f5_only
           shift: [pad, topPad]
-        - ref: qwertyMatrix_cap_y6
-          shift: [-0.5ky, 0.7kx]
+        # - ref: qwertyMatrix_cap_y6
+        #   shift: [-0.5ky, 0.7kx]
         - ref: ctrlMatrix_space_only
           shift: [1.8kx, -1pad]
         - ref: ctrlMatrix_ctrl_only
@@ -427,10 +431,6 @@ pcbs:
         adjust:
           shift: [0, -5]
 
-      black-pill-controller:
-        what: blackpill
-        where.ref.shift: [132, -55]
-
       box-header:
         what: boxheader
         where.ref.shift: [187, -58]
@@ -462,46 +462,3 @@ pcbs:
         params:
           hole: mountHoleR
 
-  converter:
-    outlines:
-      main:
-        outline: converterOutline
-    
-    footprints:
-      black-pill-controller:
-        what: blackpill
-        params:
-          drawOutline: false
-          drawPinLabels: true
-        where.ref.shift: [(converterW / 2), -((converterH / 2) + 4)]
-
-      pico-controller:
-        what: pico
-        params:
-          drawOutline: false
-          drawPinLabels: true
-        where.ref.shift: [(converterW / 2), -((converterH / 2) - 3)]
-
-      tl-hole:
-        what: npth
-        where.ref.shift: [2.5, -2.5]
-        params:
-          hole: mountHoleR
-
-      tr-hole:
-        what: npth
-        where.ref.shift: [62.5, -2.5]
-        params:
-          hole: mountHoleR
-
-      bl-hole:
-        what: npth
-        where.ref.shift: [2.5, -27.5]
-        params:
-          hole: mountHoleR
-
-      br-hole:
-        what: npth
-        where.ref.shift: [62.5, -27.5]
-        params:
-          hole: mountHoleR
