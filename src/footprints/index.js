@@ -6,6 +6,7 @@ module.exports = {
     choc: require('./choc'),
     chocmini: require('./chocmini'),
     diode: require('./diode'),
+    gateronmx33: require('./gateronmx33'),
     jstph: require('./jstph'),
     jumper: require('./jumper'),
     mx: require('./mx'),

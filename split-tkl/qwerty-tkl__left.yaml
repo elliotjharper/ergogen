@@ -391,7 +391,7 @@ pcbs:
 
     footprints:
       qwerty-switches:
-        what: mx
+        what: gateronmx33
         where: ["/^qwertyMatrix_.*/"]
         params:
           keycaps: true
@@ -403,7 +403,7 @@ pcbs:
           rotate: 90
 
       other-switches:
-        what: mx
+        what: gateronmx33
         where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
         params:
           keycaps: true
