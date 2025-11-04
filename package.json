@@ -17,7 +17,7 @@
         "left:plate-stl": "openjscad ./split-tkl/output-left/cases/plate.jscad -of stla -o ./split-tkl/output-left/cases/plate.stl",
         "left:plate-test-stl": "openjscad ./split-tkl/output-left/cases/plateTest.jscad -of stla -o ./split-tkl/output-left/cases/plateTest.stl",
         "left": "npm run left:ergogen && npm run left:plate-stl && npm run left:plate-test-stl",
-        "right:ergoen": "node src/cli.js ./split-tkl/qwerty-tkl__right.yaml -o split-tkl/output-right",
+        "right:ergogen": "node src/cli.js ./split-tkl/qwerty-tkl__right.yaml -o split-tkl/output-right",
         "right": "npm run right:ergogen"
     },
     "dependencies": {

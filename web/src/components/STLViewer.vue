@@ -7,6 +7,7 @@ import { ref, onMounted, onUnmounted, watch } from 'vue'
 import * as THREE from 'three'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import DxfParser from 'dxf-parser'
 
 const props = defineProps({
   file: {
@@ -77,8 +78,16 @@ const loadSTL = async (file) => {
   // Remove existing mesh if any
   if (mesh) {
     scene.remove(mesh)
-    mesh.geometry.dispose()
-    mesh.material.dispose()
+    if (mesh.geometry) {
+      mesh.geometry.dispose()
+    }
+    if (mesh.material) {
+      if (Array.isArray(mesh.material)) {
+        mesh.material.forEach(mat => mat.dispose())
+      } else {
+        mesh.material.dispose()
+      }
+    }
   }
 
   const loader = new STLLoader()
@@ -114,6 +123,127 @@ const loadSTL = async (file) => {
   reader.readAsArrayBuffer(file)
 }
 
+const loadDXF = async (file) => {
+  // Remove existing mesh if any
+  if (mesh) {
+    scene.remove(mesh)
+    if (mesh.geometry) {
+      mesh.geometry.dispose()
+    }
+    if (mesh.material) {
+      if (Array.isArray(mesh.material)) {
+        mesh.material.forEach(mat => mat.dispose())
+      } else {
+        mesh.material.dispose()
+      }
+    }
+  }
+
+  const reader = new FileReader()
+  
+  reader.onload = (event) => {
+    try {
+      const parser = new DxfParser()
+      const dxf = parser.parseSync(event.target.result)
+      
+      if (!dxf) {
+        console.error('Failed to parse DXF')
+        return
+      }
+
+      // Create a group to hold all DXF entities
+      const group = new THREE.Group()
+      
+      // Create line material
+      const lineMaterial = new THREE.LineBasicMaterial({ 
+        color: 0x4CAF50,
+        linewidth: 2
+      })
+
+      // Process entities
+      if (dxf.entities) {
+        dxf.entities.forEach(entity => {
+          if (entity.type === 'LINE') {
+            const points = [
+              new THREE.Vector3(entity.vertices[0].x, entity.vertices[0].y, entity.vertices[0].z || 0),
+              new THREE.Vector3(entity.vertices[1].x, entity.vertices[1].y, entity.vertices[1].z || 0)
+            ]
+            const geometry = new THREE.BufferGeometry().setFromPoints(points)
+            const line = new THREE.Line(geometry, lineMaterial)
+            group.add(line)
+          } else if (entity.type === 'POLYLINE' || entity.type === 'LWPOLYLINE') {
+            const points = entity.vertices.map(v => 
+              new THREE.Vector3(v.x, v.y, v.z || 0)
+            )
+            const geometry = new THREE.BufferGeometry().setFromPoints(points)
+            const line = new THREE.Line(geometry, lineMaterial)
+            group.add(line)
+          } else if (entity.type === 'CIRCLE') {
+            const curve = new THREE.EllipseCurve(
+              entity.center.x, entity.center.y,
+              entity.radius, entity.radius,
+              0, 2 * Math.PI,
+              false, 0
+            )
+            const points = curve.getPoints(50).map(p => 
+              new THREE.Vector3(p.x, p.y, entity.center.z || 0)
+            )
+            const geometry = new THREE.BufferGeometry().setFromPoints(points)
+            const line = new THREE.Line(geometry, lineMaterial)
+            group.add(line)
+          } else if (entity.type === 'ARC') {
+            const startAngle = entity.startAngle * Math.PI / 180
+            const endAngle = entity.endAngle * Math.PI / 180
+            const curve = new THREE.EllipseCurve(
+              entity.center.x, entity.center.y,
+              entity.radius, entity.radius,
+              startAngle, endAngle,
+              false, 0
+            )
+            const points = curve.getPoints(50).map(p => 
+              new THREE.Vector3(p.x, p.y, entity.center.z || 0)
+            )
+            const geometry = new THREE.BufferGeometry().setFromPoints(points)
+            const line = new THREE.Line(geometry, lineMaterial)
+            group.add(line)
+          }
+        })
+      }
+
+      // Center the group
+      const box = new THREE.Box3().setFromObject(group)
+      const center = new THREE.Vector3()
+      box.getCenter(center)
+      group.position.sub(center)
+
+      mesh = group
+      scene.add(mesh)
+
+      // Adjust camera based on model size
+      const size = box.getSize(new THREE.Vector3())
+      const maxDim = Math.max(size.x, size.y, size.z)
+      camera.position.z = maxDim * 2
+      controls.update()
+    } catch (error) {
+      console.error('Error parsing DXF:', error)
+    }
+  }
+
+  reader.readAsText(file)
+}
+
+const loadFile = async (file) => {
+  const fileName = file.name.toLowerCase()
+  
+  if (fileName.endsWith('.stl')) {
+    await loadSTL(file)
+  } else if (fileName.endsWith('.dxf')) {
+    await loadDXF(file)
+  } else {
+    console.error('Unsupported file type:', fileName)
+  }
+}
+
 const animate = () => {
   requestAnimationFrame(animate)
   controls.update()
@@ -128,12 +258,12 @@ const onWindowResize = () => {
 
 onMounted(() => {
   initScene()
-  loadSTL(props.file)
+  loadFile(props.file)
 })
 
 watch(() => props.file, (newFile) => {
   if (newFile) {
-    loadSTL(newFile)
+    loadFile(newFile)
   }
 })
 

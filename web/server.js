@@ -15,22 +15,34 @@ const PORT = 3001
 app.use(cors())
 app.use(express.json())
 
-// Get list of STL files
+// Get list of STL and DXF files
 app.get('/api/stl-files', async (req, res) => {
   try {
-    const pattern = 'split-tkl/output-left/**/*.stl'
-    const files = await glob(pattern, { cwd: rootDir })
+    const patterns = [
+      'split-tkl/output-*/**/*.stl',
+      'split-tkl/output-*/**/*.dxf'
+    ]
     
-    const fileList = files.map(file => ({
-      path: file,
-      name: file.split('/').pop(),
-      relativePath: file
-    }))
+    const allFiles = []
+    for (const pattern of patterns) {
+      const files = await glob(pattern, { cwd: rootDir })
+      allFiles.push(...files)
+    }
+    
+    const fileList = allFiles.map(file => {
+      // Handle both forward and backslashes
+      const separator = file.includes('\\') ? '\\' : '/'
+      return {
+        path: file,
+        name: file.split(separator).pop(),
+        relativePath: file
+      }
+    })
     
     res.json(fileList)
   } catch (error) {
-    console.error('Error finding STL files:', error)
-    res.status(500).json({ error: 'Failed to find STL files' })
+    console.error('Error finding files:', error)
+    res.status(500).json({ error: 'Failed to find files' })
   }
 })
 

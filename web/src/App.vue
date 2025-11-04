@@ -5,13 +5,13 @@
       <div class="controls">
         <input 
           type="file" 
-          accept=".stl"
+          accept=".stl,.dxf"
           @change="handleFileUpload"
           ref="fileInput"
           style="display: none"
         />
         <button @click="$refs.fileInput.click()" class="btn">
-          Load STL File
+          Load File
         </button>
         <select 
           v-model="selectedFile"
@@ -19,14 +19,20 @@
           class="file-select"
           :disabled="!availableFiles.length"
         >
-          <option value="">{{ availableFiles.length ? 'Select an STL file...' : 'Loading files...' }}</option>
-          <option 
-            v-for="file in availableFiles" 
-            :key="file.path"
-            :value="file.path"
+          <option value="">{{ availableFiles.length ? 'Select a file...' : 'Loading files...' }}</option>
+          <optgroup 
+            v-for="folder in fileTree" 
+            :key="folder.name"
+            :label="folder.name"
           >
-            {{ file.name }}
-          </option>
+            <option 
+              v-for="file in folder.files" 
+              :key="file.path"
+              :value="file.path"
+            >
+              {{ file.displayName }}
+            </option>
+          </optgroup>
         </select>
         <input 
           v-model="stlPath"
@@ -57,7 +63,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import STLViewer from './components/STLViewer.vue'
 
 const API_BASE = 'http://localhost:3001/api'
@@ -67,6 +73,36 @@ const stlPath = ref(null)
 const fileInput = ref(null)
 const availableFiles = ref([])
 const selectedFile = ref('')
+
+// Organize files into a folder tree structure
+const fileTree = computed(() => {
+  const tree = {}
+  
+  availableFiles.value.forEach(file => {
+    // Detect path separator (\ or /)
+    const separator = file.path.includes('\\') ? '\\' : '/'
+    const parts = file.path.split(separator)
+    // Get the folder structure (everything except the filename)
+    const folderPath = parts.slice(0, -1).join(separator)
+    // Get just the filename
+    const fileName = parts[parts.length - 1]
+    
+    if (!tree[folderPath]) {
+      tree[folderPath] = {
+        name: folderPath,
+        files: []
+      }
+    }
+    
+    tree[folderPath].files.push({
+      ...file,
+      displayName: fileName
+    })
+  })
+  
+  // Convert to array and sort by folder name
+  return Object.values(tree).sort((a, b) => a.name.localeCompare(b.name))
+})
 
 const fetchAvailableFiles = async () => {
   try {
@@ -147,7 +183,7 @@ const handleFileSelect = () => {
 
 const handleFileUpload = (event) => {
   const file = event.target.files[0]
-  if (file && file.name.endsWith('.stl')) {
+  if (file && (file.name.endsWith('.stl') || file.name.endsWith('.dxf'))) {
     stlFile.value = file
     stlPath.value = null
     selectedFile.value = ''
@@ -213,6 +249,20 @@ onMounted(async () => {
   border-radius: 4px;
   font-size: 0.9rem;
   cursor: pointer;
+}
+
+.file-select optgroup {
+  background: #2a2a2a;
+  color: #4CAF50;
+  font-weight: 600;
+  font-style: normal;
+  padding: 0.25rem 0;
+}
+
+.file-select option {
+  background: #1a1a1a;
+  color: white;
+  padding: 0.25rem 0.5rem;
 }
 
 .file-select:focus {
