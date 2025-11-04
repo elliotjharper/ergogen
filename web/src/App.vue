@@ -5,7 +5,7 @@
       <div class="controls">
         <input 
           type="file" 
-          accept=".stl,.dxf"
+          accept=".stl,.dxf,.kicad_pcb"
           @change="handleFileUpload"
           ref="fileInput"
           style="display: none"
@@ -183,7 +183,7 @@ const handleFileSelect = () => {
 
 const handleFileUpload = (event) => {
   const file = event.target.files[0]
-  if (file && (file.name.endsWith('.stl') || file.name.endsWith('.dxf'))) {
+  if (file && (file.name.endsWith('.stl') || file.name.endsWith('.dxf') || file.name.endsWith('.kicad_pcb'))) {
     stlFile.value = file
     stlPath.value = null
     selectedFile.value = ''

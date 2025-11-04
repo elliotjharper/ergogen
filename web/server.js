@@ -15,12 +15,13 @@ const PORT = 3001
 app.use(cors())
 app.use(express.json())
 
-// Get list of STL and DXF files
+// Get list of STL, DXF, and KiCad files
 app.get('/api/stl-files', async (req, res) => {
   try {
     const patterns = [
       'split-tkl/output-*/**/*.stl',
-      'split-tkl/output-*/**/*.dxf'
+      'split-tkl/output-*/**/*.dxf',
+      'split-tkl/output-*/**/*.kicad_pcb'
     ]
     
     const allFiles = []

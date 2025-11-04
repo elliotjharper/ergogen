@@ -372,6 +372,17 @@ outlines:
         - { shift: [0, -converterH] }
         - { shift: [-converterW, 0] }
 
+  gateronTestOutline:
+    - what: polygon
+      where: {}
+      bound: false
+      adjust.shift: [0, -10]
+      points:
+       - { shift: [0, 0] }
+       - { shift: [20, 0] }
+       - { shift: [0, -20] }
+       - { shift: [-20, 0] }
+
 cases:
   plate:
     - what: outline
@@ -384,6 +395,21 @@ cases:
       extrude: plateThickness
 
 pcbs:
+  test-pcb:
+    outlines:
+      main:
+        outline: gateronTestOutline
+    
+    footprints:
+      test-switch:
+        what: gateronmx33
+        where.ref.shift: [10, -20]
+        params:
+          keycaps: true
+          reverse: false
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+  
   pcb-left:
     outlines:
       main:
@@ -396,7 +422,6 @@ pcbs:
         params:
           keycaps: true
           reverse: false
-          hotswap: false
           from: "{{column_net}}"
           to: "{{colrow}}"
         adjust:
@@ -408,7 +433,6 @@ pcbs:
         params:
           keycaps: true
           reverse: false
-          hotswap: false
           from: "{{column_net}}"
           to: "{{colrow}}"
 
