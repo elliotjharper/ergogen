@@ -127,17 +127,17 @@ points:
             # formula = `{height}/1.2`
             padding: 1.25kx
 
-          rows.y6.skip: true  # skip the y key
+          rows.y6.skip: true # skip the y key
 
         cap:
           key.row_net: B7
 
           # adjust the CAPS key
           rows.lBord:
-            skip: true        # skip the caps key itself
-            padding: 1.75kx   # move the start of the caps row over to the right
-          
-          rows.y6.skip: true  # skip the h key
+            skip: true # skip the caps key itself
+            padding: 1.75kx # move the start of the caps row over to the right
+
+          rows.y6.skip: true # skip the h key
 
         shift:
           key.row_net: B8
@@ -227,19 +227,19 @@ points:
 outlines:
   threeUKeyCaps:
     - what: rectangle
-      where: "/^ctrlMatrix_space/"
+      where: '/^ctrlMatrix_space/'
       bound: false
       size: [3capX, capY]
 
   keyCaps:
     - what: rectangle
-      where: "-/mounting.*Matrix_.*/"
+      where: '-/mounting.*Matrix_.*/'
       bound: false
       size: [capX, capY]
 
   mountingHoles:
     - what: circle
-      where: "/mounting.*Matrix_.*/"
+      where: '/mounting.*Matrix_.*/'
       bound: false
       radius: mountHoleR/2
 
@@ -263,7 +263,7 @@ outlines:
 
   plateTopCutOff:
     - what: polygon
-      where: "/^functionKeysMatrix_esc_only/"
+      where: '/^functionKeysMatrix_esc_only/'
       bound: false
       adjust:
         shift: [-15, 35]
@@ -275,13 +275,13 @@ outlines:
 
   plateSwitchHoles:
     - what: outline
-      where: "/^qwertyMatrix_.*/"
+      where: '/^qwertyMatrix_.*/'
       name: mxHole
       adjust:
         rotate: 90
 
     - what: outline
-      where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
+      where: ['/^functionKeysMatrix.*/', '/^ctrlMatrix.*/']
       name: mxHole
 
   plateTestBlank:
@@ -300,10 +300,10 @@ outlines:
       bound: false
       adjust.shift: [(132 - (blackpillW/2)), (-56 + (blackpillH/2))]
       points:
-       - { shift: [0, 0] }
-       - { shift: [blackpillW, 0] }
-       - { shift: [0, -blackpillH] }
-       - { shift: [-blackpillW, 0] }
+        - { shift: [0, 0] }
+        - { shift: [blackpillW, 0] }
+        - { shift: [0, -blackpillH] }
+        - { shift: [-blackpillW, 0] }
 
   boxHeaderOutline:
     - what: polygon
@@ -311,10 +311,10 @@ outlines:
       bound: false
       adjust.shift: [(187 - (boxHeaderW/2)), (-58 + (boxHeaderH/2))]
       points:
-       - { shift: [0, 0] }
-       - { shift: [boxHeaderW, 0] }
-       - { shift: [0, -boxHeaderH] }
-       - { shift: [-boxHeaderW, 0] }
+        - { shift: [0, 0] }
+        - { shift: [boxHeaderW, 0] }
+        - { shift: [0, -boxHeaderH] }
+        - { shift: [-boxHeaderW, 0] }
 
   plateTestOutline:
     - name: plateTestBlank
@@ -378,10 +378,10 @@ outlines:
       bound: false
       adjust.shift: [0, -10]
       points:
-       - { shift: [0, 0] }
-       - { shift: [20, 0] }
-       - { shift: [0, -20] }
-       - { shift: [-20, 0] }
+        - { shift: [0, 0] }
+        - { shift: [20, 0] }
+        - { shift: [0, -20] }
+        - { shift: [-20, 0] }
 
 cases:
   plate:
@@ -399,17 +399,17 @@ pcbs:
     outlines:
       main:
         outline: gateronTestOutline
-    
+
     footprints:
       test-switch:
         what: gateronmx33
         where.ref.shift: [10, -20]
         params:
           keycaps: true
-          reverse: false
-          from: "{{column_net}}"
-          to: "{{colrow}}"
-  
+          mirror: false
+          from: '{{column_net}}'
+          to: '{{colrow}}'
+
   pcb-left:
     outlines:
       main:
@@ -418,71 +418,72 @@ pcbs:
     footprints:
       qwerty-switches:
         what: gateronmx33
-        where: ["/^qwertyMatrix_.*/"]
+        where: ['/^qwertyMatrix_.*/']
         params:
           keycaps: true
-          reverse: false
-          from: "{{column_net}}"
-          to: "{{colrow}}"
+          mirror: false
+          smdDiode: true
+          from: '{{column_net}}'
+          to: '{{colrow}}'
         adjust:
           rotate: 90
 
       other-switches:
         what: gateronmx33
-        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
+        where: ['/^functionKeysMatrix.*/', '/^ctrlMatrix.*/']
         params:
           keycaps: true
-          reverse: false
-          from: "{{column_net}}"
-          to: "{{colrow}}"
+          mirror: false
+          smdDiode: true
+          from: '{{column_net}}'
+          to: '{{colrow}}'
 
-      qwerty-diodes:
-        what: diode
-        where: ["/^qwertyMatrix_.*/"]
-        params:
-          from: "{{colrow}}"
-          to: "{{row_net}}"
-        adjust:
-          rotate: 90
-          shift: [5, 0]
+      #   qwerty-diodes:
+      #     what: diode
+      #     where: ['/^qwertyMatrix_.*/']
+      #     params:
+      #       from: '{{colrow}}'
+      #       to: '{{row_net}}'
+      #     adjust:
+      #       rotate: 90
+      #       shift: [5, 0]
 
-      other-diodes:
-        what: diode
-        where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
-        params:
-          from: "{{colrow}}"
-          to: "{{row_net}}"
-        adjust:
-          shift: [0, -5]
+      # other-diodes:
+      #   what: diode
+      #   where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
+      #   params:
+      #     from: "{{colrow}}"
+      #     to: "{{row_net}}"
+      #   adjust:
+      #     shift: [0, -5]
 
       box-header:
         what: boxheader
         where.ref.shift: [187, -58]
         params:
-          H1: "A7"
-          H2: "B0"
-          H3: "B1"
-          H4: "B10"
-          H5: "B4"
-          H6: "B5"
-          H7: "B6"
-          H8: "B7"
-          H9: "B8"
-          H10: "B9"
-          H11: "A6"
-          H12: "A5"
-          H13: "A4"
-          H14: "A3"
-          H15: "A2"
-          H16: "A1"
-          H17: "A0"
-          H18: "C15"
-          H19: "C14"
-          H20: "C13"
+          H1: 'A7'
+          H2: 'B0'
+          H3: 'B1'
+          H4: 'B10'
+          H5: 'B4'
+          H6: 'B5'
+          H7: 'B6'
+          H8: 'B7'
+          H9: 'B8'
+          H10: 'B9'
+          H11: 'A6'
+          H12: 'A5'
+          H13: 'A4'
+          H14: 'A3'
+          H15: 'A2'
+          H16: 'A1'
+          H17: 'A0'
+          H18: 'C15'
+          H19: 'C14'
+          H20: 'C13'
 
       mounting-holes:
         what: npth
-        where: "/mounting.*Matrix_.*/"
+        where: '/mounting.*Matrix_.*/'
         params:
           hole: mountHoleR
-
