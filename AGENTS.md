@@ -1,0 +1,1 @@
+- no inline if statements, you MUST ALWAYS use curly braces {}
