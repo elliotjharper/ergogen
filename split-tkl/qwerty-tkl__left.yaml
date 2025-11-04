@@ -438,49 +438,12 @@ pcbs:
           from: '{{column_net}}'
           to: '{{colrow}}'
 
-      #   qwerty-diodes:
-      #     what: diode
-      #     where: ['/^qwertyMatrix_.*/']
-      #     params:
-      #       from: '{{colrow}}'
-      #       to: '{{row_net}}'
-      #     adjust:
-      #       rotate: 90
-      #       shift: [5, 0]
-
-      # other-diodes:
-      #   what: diode
-      #   where: ["/^functionKeysMatrix.*/", "/^ctrlMatrix.*/"]
-      #   params:
-      #     from: "{{colrow}}"
-      #     to: "{{row_net}}"
-      #   adjust:
-      #     shift: [0, -5]
-
-      box-header:
-        what: boxheader
-        where.ref.shift: [187, -58]
+      pico-controller:
+        what: pico
         params:
-          H1: 'A7'
-          H2: 'B0'
-          H3: 'B1'
-          H4: 'B10'
-          H5: 'B4'
-          H6: 'B5'
-          H7: 'B6'
-          H8: 'B7'
-          H9: 'B8'
-          H10: 'B9'
-          H11: 'A6'
-          H12: 'A5'
-          H13: 'A4'
-          H14: 'A3'
-          H15: 'A2'
-          H16: 'A1'
-          H17: 'A0'
-          H18: 'C15'
-          H19: 'C14'
-          H20: 'C13'
+          drawOutline: true
+          drawPinLabels: true
+        where.ref.shift: [150, -55]
 
       mounting-holes:
         what: npth
