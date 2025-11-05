@@ -276,6 +276,12 @@ const loadKiCad = async (file) => {
         side: THREE.DoubleSide
       })
       
+      // Material for silk screen (white)
+      const silkMaterial = new THREE.LineBasicMaterial({ 
+        color: 0xFFFFFF,
+        linewidth: 2
+      })
+      
       // Parse the s-expression structure
       // Look for modules (KiCad v5) or footprints (KiCad v6+) and their pads
       // KiCad v5 has (at ...) on separate line, v6+ has it inline
@@ -366,6 +372,43 @@ const loadKiCad = async (file) => {
         
         console.log('Footprint had', padCount, 'pads')
       })
+      
+      // Parse silk screen elements (fp_line on F.SilkS and B.SilkS layers)
+      const silkLineRegex = /\(fp_line\s+\(start\s+([-\d.]+)\s+([-\d.]+)\)\s+\(end\s+([-\d.]+)\s+([-\d.]+)\)[\s\S]*?\(layer\s+(F\.SilkS|B\.SilkS)\)/g
+      let silkLineCount = 0
+      
+      footprints.forEach(fp => {
+        let silkMatch
+        const fpSilkRegex = /\(fp_line\s+\(start\s+([-\d.]+)\s+([-\d.]+)\)\s+\(end\s+([-\d.]+)\s+([-\d.]+)\)[\s\S]*?\(layer\s+(F\.SilkS|B\.SilkS)\)/g
+        
+        while ((silkMatch = fpSilkRegex.exec(fp.content)) !== null) {
+          silkLineCount++
+          const localX1 = parseFloat(silkMatch[1])
+          const localY1 = parseFloat(silkMatch[2])
+          const localX2 = parseFloat(silkMatch[3])
+          const localY2 = parseFloat(silkMatch[4])
+          
+          // Transform to world coordinates
+          const cosRot = Math.cos((fp.rotation * Math.PI) / 180)
+          const sinRot = Math.sin((fp.rotation * Math.PI) / 180)
+          
+          const worldX1 = fp.x + localX1 * cosRot - localY1 * sinRot
+          const worldY1 = fp.y + localX1 * sinRot + localY1 * cosRot
+          const worldX2 = fp.x + localX2 * cosRot - localY2 * sinRot
+          const worldY2 = fp.y + localX2 * sinRot + localY2 * cosRot
+          
+          const points = [
+            new THREE.Vector3(worldX1, -worldY1, 0.01),
+            new THREE.Vector3(worldX2, -worldY2, 0.01)
+          ]
+          
+          const geometry = new THREE.BufferGeometry().setFromPoints(points)
+          const line = new THREE.Line(geometry, silkMaterial)
+          group.add(line)
+        }
+      })
+      
+      console.log('Found', silkLineCount, 'silk screen lines')
       
       // Parse board edge cuts (Edge.Cuts layer) - support both v5 and v6+ format
       // Collect all edge segments

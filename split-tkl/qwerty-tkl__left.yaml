@@ -186,23 +186,27 @@ points:
 
     mountingCapsMatrix:
       rows.only:
-      columns.only.rows.only.adjust.ref.shift: [112.5, -137.6]
+      columns.only.rows.only.adjust.ref.shift: [94, -137.6]
+
+    mountingGMatrix:
+      rows.only:
+      columns.only.rows.only.adjust.ref.shift: [223, -130]
 
     mountingLeftAltMatrix:
       rows.only:
-      columns.only.rows.only.adjust.ref.shift: [142.5, -170]
+      columns.only.rows.only.adjust.ref.shift: [142.5, -183]
 
-    mountingSpaceLMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [182.5, -170]
+    # mountingSpaceLMatrix:
+    #   rows.only:
+    #   columns.only.rows.only.adjust.ref.shift: [182.5, -183]
 
     mountingSpaceRMatrix:
       rows.only:
-      columns.only.rows.only.adjust.ref.shift: [225, -170]
+      columns.only.rows.only.adjust.ref.shift: [223, -183]
 
     mountingTildeTMatrix:
       rows.only:
-      columns.only.rows.only.adjust.ref.shift: [100, -88.1]
+      columns.only.rows.only.adjust.ref.shift: [94, -88.1]
 
     mountingThreeTMatrix:
       rows.only:
@@ -210,19 +214,15 @@ points:
 
     mountingSixTMatrix:
       rows.only:
-      columns.only.rows.only.adjust.ref.shift: [214, -88.1]
+      columns.only.rows.only.adjust.ref.shift: [223, -88.1]
 
-    mountingControllerLTMatrix:
+    mountingPicoLMatrix:
       rows.only:
-      columns.only.rows.only.adjust.ref.shift: [98, -60]
+      columns.only.rows.only.adjust.ref.shift: [124, -48]
 
-    mountingBoxLMatrix:
+    mountingPicoRMatrix:
       rows.only:
-      columns.only.rows.only.adjust.ref.shift: [165, -47]
-
-    mountingBoxRMatrix:
-      rows.only:
-      columns.only.rows.only.adjust.ref.shift: [210, -47]
+      columns.only.rows.only.adjust.ref.shift: [196, -48]
 
 outlines:
   threeUKeyCaps:
@@ -326,18 +326,26 @@ outlines:
     - what: polygon
       operation: stack
       points:
+        # top left corner (lower)
         - ref: functionKeysMatrix_esc_only
           shift: [-1pad, topPad]
+        # top left corner (upper)
         - ref: functionKeysMatrix_esc_only
           shift: [mcNotchOffset, mcNotchH]
+        # top right corner (upper)
         - ref: functionKeysMatrix_esc_only
           shift: [mcNotchOffset+mcNotchW, mcNotchH]
+        # top right corner (lower)
         - ref: functionKeysMatrix_f5_only
-          shift: [pad, topPad]
+          shift: [2pad, topPad]
+
         # - ref: qwertyMatrix_cap_y6
         #   shift: [-0.5ky, 0.7kx]
+
+        # bottom right corner
         - ref: ctrlMatrix_space_only
-          shift: [1.8kx, -1pad]
+          shift: [1.135kx, -1pad]
+        # bottom left corner
         - ref: ctrlMatrix_ctrl_only
           shift: [-1.2pad, -pad]
       fillet: 0.25pad
@@ -443,7 +451,7 @@ pcbs:
         params:
           drawOutline: true
           drawPinLabels: true
-        where.ref.shift: [150, -55]
+        where.ref.shift: [160, -55]
 
       mounting-holes:
         what: npth
